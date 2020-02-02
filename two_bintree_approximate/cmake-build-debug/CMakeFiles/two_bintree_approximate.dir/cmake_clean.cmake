@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/two_bintree_approximate.dir/main.c.obj"
+  "CMakeFiles/two_bintree_approximate.dir/quicksort.c.obj"
   "libtwo_bintree_approximate.dll.a"
   "two_bintree_approximate.exe"
   "two_bintree_approximate.exe.manifest"

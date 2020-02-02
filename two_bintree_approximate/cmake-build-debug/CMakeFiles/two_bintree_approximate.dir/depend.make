@@ -3,3 +3,5 @@
 
 CMakeFiles/two_bintree_approximate.dir/main.c.obj: ../main.c
 
+CMakeFiles/two_bintree_approximate.dir/quicksort.c.obj: ../quicksort.c
+

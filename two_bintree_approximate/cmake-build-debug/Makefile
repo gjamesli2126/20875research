@@ -47,10 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\Corsome\Desktop\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate"
+CMAKE_SOURCE_DIR = "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\Corsome\Desktop\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug"
+CMAKE_BINARY_DIR = "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Corsome\Desktop\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles" "C:\Users\Corsome\Desktop\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles" "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles\progress.marks"
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Corsome\Desktop\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/main.c.s
 .PHONY : main.c.s
 
+quicksort.obj: quicksort.c.obj
+
+.PHONY : quicksort.obj
+
+# target to build an object file
+quicksort.c.obj:
+	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/quicksort.c.obj
+.PHONY : quicksort.c.obj
+
+quicksort.i: quicksort.c.i
+
+.PHONY : quicksort.i
+
+# target to preprocess a source file
+quicksort.c.i:
+	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/quicksort.c.i
+.PHONY : quicksort.c.i
+
+quicksort.s: quicksort.c.s
+
+.PHONY : quicksort.s
+
+# target to generate assembly for a file
+quicksort.c.s:
+	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/quicksort.c.s
+.PHONY : quicksort.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -161,6 +188,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... quicksort.obj
+	@echo ... quicksort.i
+	@echo ... quicksort.s
 .PHONY : help
 
 
