@@ -1,4 +1,4 @@
-# Install script for directory: D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working
+# Install script for directory: C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
