@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate/cmake-build-debug
