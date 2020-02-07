@@ -17,8 +17,8 @@
 					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="two_bintree_approximate">
-				<Option output="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="two_bintree_approximate_working">
+				<Option output="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate_working.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -29,14 +29,14 @@
 					<Add directory="C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt-v6-rev0/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 two_bintree_approximate"/>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 two_bintree_approximate_working"/>
 					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="two_bintree_approximate/fast">
-				<Option output="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="two_bintree_approximate_working/fast">
+				<Option output="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate_working.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -47,7 +47,7 @@
 					<Add directory="C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt-v6-rev0/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 two_bintree_approximate/fast"/>
+					<Build command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 two_bintree_approximate_working/fast"/>
 					<CompileFile command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="C:/PROGRA~1/MINGW-~1/X86_64~1.0-P/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -75,7 +75,7 @@
 			</Target>
 		</Build>
 		<Unit filename="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/main.c">
-			<Option target="two_bintree_approximate"/>
+			<Option target="two_bintree_approximate_working"/>
 		</Unit>
 		<Unit filename="C:/Users/Corsome/Desktop/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate_working/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

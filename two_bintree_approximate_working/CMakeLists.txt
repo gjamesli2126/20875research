@@ -3,4 +3,4 @@ project(two_bintree_approximate C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(two_bintree_approximate main.c)
+add_executable(two_bintree_approximate_working main.c)

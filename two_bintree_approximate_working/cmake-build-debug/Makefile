@@ -110,17 +110,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named two_bintree_approximate
+# Target rules for targets named two_bintree_approximate_working
 
 # Build rule for target.
-two_bintree_approximate: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 two_bintree_approximate
-.PHONY : two_bintree_approximate
+two_bintree_approximate_working: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 two_bintree_approximate_working
+.PHONY : two_bintree_approximate_working
 
 # fast build rule for target.
-two_bintree_approximate/fast:
-	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/build
-.PHONY : two_bintree_approximate/fast
+two_bintree_approximate_working/fast:
+	$(MAKE) -f CMakeFiles\two_bintree_approximate_working.dir\build.make CMakeFiles/two_bintree_approximate_working.dir/build
+.PHONY : two_bintree_approximate_working/fast
 
 main.obj: main.c.obj
 
@@ -128,7 +128,7 @@ main.obj: main.c.obj
 
 # target to build an object file
 main.c.obj:
-	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/main.c.obj
+	$(MAKE) -f CMakeFiles\two_bintree_approximate_working.dir\build.make CMakeFiles/two_bintree_approximate_working.dir/main.c.obj
 .PHONY : main.c.obj
 
 main.i: main.c.i
@@ -137,7 +137,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/main.c.i
+	$(MAKE) -f CMakeFiles\two_bintree_approximate_working.dir\build.make CMakeFiles/two_bintree_approximate_working.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -146,7 +146,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles\two_bintree_approximate.dir\build.make CMakeFiles/two_bintree_approximate.dir/main.c.s
+	$(MAKE) -f CMakeFiles\two_bintree_approximate_working.dir\build.make CMakeFiles/two_bintree_approximate_working.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -155,7 +155,7 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... two_bintree_approximate
+	@echo ... two_bintree_approximate_working
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... main.obj
