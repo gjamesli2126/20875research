@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="_ref" targetName="_ref" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="79611a18-6cce-4c8d-9cea-a94d7d86aab3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_ref.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/DependInfo.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/build.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/cmake_clean.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/depend.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/flags.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/link.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/objects1.rsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/_ref.cbp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../one_KDtree/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../one_KDtree/driver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../one_KDtree/kdtree.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/two_bintree_approximate.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CMakeSystem.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/linklibs.rsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/progress.make" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate_terminated_concept_too_hard/.idea/two_bintree_approximate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/two_bintree_approximate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/_ref.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/Err part.png" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/Err part.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeSystem.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/CMakeCCompilerId.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/cmake.check_cache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/C.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/linklibs.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/linklibs.rsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/objects1.rsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/CMakeFiles/two_bintree_approximate_working.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/_ref.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/two_bintree_approximate.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/two_bintree_approximate.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/cmake-build-debug/two_bintree_approximate_working.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/cmake-build-debug/two_bintree_approximate_working.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/main_org.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/main_org.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/main_print_debug.c" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/main_print_debug.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/thro/quicksort.c" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/thro/quicksort.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate_working/thro/quicksort.h" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate_failed2/thro/quicksort.h" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1XTJhoHyX8GXYcHlbBhPnMMLIUr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="_ref" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="_ref" TARGET_NAME="_ref" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="_ref" RUN_TARGET_NAME="_ref">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="79611a18-6cce-4c8d-9cea-a94d7d86aab3" name="Default Changelist" comment="" />
+      <created>1581064272365</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581064272365</updated>
+      <workItem from="1581064273906" duration="1303000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
