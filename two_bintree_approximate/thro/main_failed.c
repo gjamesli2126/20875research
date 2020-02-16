@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 15
+#define DATASET_NUM 7
 
 typedef struct point{
     float values[DIM];
@@ -39,12 +39,12 @@ void swap(point *x,point *y){
     *x=*y;
     *y=tmp;
 }
-point *super_gen_seq_arr(int number,bool reversed){
+point *super_gen_seq_arr(int number,bool daraF){
     int i,dim,j;
     point *arr=(point*)malloc(sizeof(point)*(number+1));
     for (i = 1; i <=number ; i++) {
         j=i;
-        if(reversed==true) {
+        if(daraF==true) {
             j=number-i+1;
         }
         for (dim = 0; dim <DIM ; dim++) {
@@ -61,8 +61,7 @@ point *super_gen_rand_arr(int number){
     point *arr=(point*)malloc(sizeof(point)*(number+1));
     for (i = 1; i <=number ; i++) {
         for (dim = 0; dim <DIM ; dim++) {
-//            arr[i].values[dim]=((float)rand()*1000/(float)rand());//should use this
-            arr[i].values[dim]=((float)(rand()%100));//init
+            arr[i].values[dim]=((float)rand()*1000/(float)rand());//init
         }
         arr[i].th=1;//init
     }
@@ -90,7 +89,7 @@ int print_test_qsort(point* arr){
     return val;
 }
 void quicksort(point *orgarr,int first,int last,int for_which_dim){
-    int from_first,from_last,pivot;
+    int from_first,from_last,pivot,temp;
 //    int testing;
 //    int test_from_first_val;
 //    int test_from_last_val;
@@ -107,8 +106,10 @@ void quicksort(point *orgarr,int first,int last,int for_which_dim){
         while(from_first<from_last){//if left index & right index not cross mid-> continue
             //if not normal-> move the index
             while((orgarr[from_first].values[for_which_dim]<=orgarr[pivot].values[for_which_dim])&&(from_first<last)) from_first++;
+
             //if not normal-> move the index
             while(orgarr[from_last].values[for_which_dim]>orgarr[pivot].values[for_which_dim]) from_last--;
+
             //            //if valid first and last index-> swap two chosen points (1 at right and another ar left)
             if(from_first<from_last)    swap(&orgarr[from_first],&orgarr[from_last]);
 //            otherwise continue
@@ -122,7 +123,7 @@ void quicksort(point *orgarr,int first,int last,int for_which_dim){
         //insert node for right side of the tree
         quicksort(orgarr,first,from_last-1,for_which_dim);
         //insert node for left side of the tree
-        quicksort(orgarr,from_last+1,last,for_which_dim);
+        quicksort(orgarr,first+1,from_last,for_which_dim);
     }
 }
 void print2DUtil(node *root, int space){
@@ -135,7 +136,7 @@ void print2DUtil(node *root, int space){
     for (i = COUNT; i < space; i++) printf(" ");
     printf("(");
     for (i = 0; i <DIM ; i++) {
-        printf("%.1f  ",root->data.values[i]);
+        printf("%.1f ",root->data.values[i]);
     }
     printf(")\n");
 //    printf("(%d,%d)\n", root->data.,root->data.y);
@@ -168,7 +169,34 @@ int print_bt(node* root){
     print_bt(root->right);
     return count;
 }
+point* super_selection0(point *orgarr,const char *up_down,int choose_dim,int split_portion){
+    int portion=100/split_portion;// for annoy should change here! maybe: int->float
+    int orgsorted_size=orgarr[0].th;
+    point *new_arr;
+    int new_arr_size;
+    int i;
+    point *sorted_orgarr=deep_copy(orgarr);
+    quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
+    if(strcmp(up_down,"down")==0){
+        printf("DOWN\n");
+        if(orgsorted_size%2==0) new_arr_size=orgsorted_size/portion;// for annoy should change here!
+        else new_arr_size=orgsorted_size/portion+1;// for annoy should change here!
+//        new_arr_size=orgsorted_size/portion;
+        new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
+        for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
+    }else if(strcmp(up_down,"up")==0){
+        printf("UP\n");
+        new_arr_size=orgsorted_size/portion;// for annoy should change here!
+        new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
+        for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[orgsorted_size-new_arr_size+i];
 
+    }else{
+        printf("Debug: arr is empty & super_selection failed!!!\n");
+        exit(0);
+    }
+    new_arr[0].th=new_arr_size;
+    return new_arr;
+}
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,int split_portion){
     int portion=100/split_portion;// for annoy should change here! maybe: int->float
     int orgsorted_size=orgarr[0].th;
@@ -199,55 +227,71 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     return new_arr;
 }
 bool left_true_right_false;
-node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_dim,int split_portion){
+node* convert_2_KDtree_code(point* arrL,point* arrR,int th,int brute_force_range,int chosen_dim,int split_portion){
     node* new_node=(node*)malloc(sizeof(node));
-    point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
-    point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
-    int i;
-//    printf("\nEach recusrsion array\n");
-//    print_nD_arr(arr);
-    chosen_dim++;
-    chosen_dim%=DIM;
-    printf("Current Dim %d\n",chosen_dim);
-    arr_left=(super_selection(arr,"down",chosen_dim,split_portion));
-    arr_right=(super_selection(arr,"up",chosen_dim,split_portion));
-    new_node->data.th=th;
-    if(arr_left[0].th>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
-        printf("L\n");
-        print_nD_arr(arr_left);
+    printf("-------------------------------------------------------------before choosing L R\n");
+    print_nD_arr(arrL);print_nD_arr(arrR);
+    printf("Way: ");
+    printf(left_true_right_false? "left":"right");
+    printf("\n-----Going to choosE!!!\n");
+    if(arrL[0].th>=brute_force_range && left_true_right_false==true){//how many elements >=bfrng
+        printf("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
+        int i;
+//        new_node=(node*)malloc(sizeof(node));
+        point* new_arrL;
+        point* new_arrR;
+        new_arrL=super_selection(arrL,"down",chosen_dim,split_portion);
+        new_arrR=super_selection(arrL,"up",chosen_dim,split_portion);
+        for(i=0;i<DIM;i++) new_node->data.values[i]= new_arrL[0].values[i];
+        new_node->data.th=th;
         print_node(new_node);
-        new_node->left=convert_2_KDtree_code(arr_left,th++,brute_force_range,chosen_dim,split_portion);
-    }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
-        printf("L----NULL\n");
-        print_nD_arr(arr_left);
-        print_node(new_node);
-        new_node->left=NULL;
+
+        th++;
+        chosen_dim++;
+        chosen_dim%=DIM;
+//        print_nD_arr(new_arrL);
+//        print_nD_arr(new_arrR);
+//        print2DUtil(new_node,0);//debug
+        new_node->left=convert_2_KDtree_code(new_arrL,new_arrR,th,brute_force_range,chosen_dim,split_portion);
+    } else if (left_true_right_false==true){
+        if(th==4){};//debug
+        printf("pop---left\n");
+        left_true_right_false=false;
+        return NULL;
     }
+    if (arrR[0].th>=brute_force_range && left_true_right_false==false){
+        printf("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR\n");
+        int i;
+//        new_node=(node*)malloc(sizeof(node));
+        point* new_arrL;
+        point* new_arrR;
+        new_arrL=super_selection(arrR,"down",chosen_dim,split_portion);
+        new_arrR=super_selection(arrR,"up",chosen_dim,split_portion);
+        for(i=0;i<DIM;i++) new_node->data.values[i]= new_arrR[0].values[i];
+        new_node->data.th=th;
 
-    if(arr_right[0].th>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
-        printf("R\n");
-        print_nD_arr(arr_right);
+        th++;
+        chosen_dim++;
+        chosen_dim%=DIM;
         print_node(new_node);
-        new_node->right=convert_2_KDtree_code(arr_right,th++,brute_force_range,chosen_dim,split_portion);
-    }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
-        printf("R----NULL\n");
-        print_nD_arr(arr_right);
-        print_node(new_node);
-        new_node->right=NULL;
+
+//        print_nD_arr(new_arrR);
+//        print_nD_arr(new_arrL);
+//        print2DUtil(new_node,0);//debug
+        new_node->right=convert_2_KDtree_code(new_arrL,new_arrR,th,brute_force_range,chosen_dim,split_portion);
+    } else if (left_true_right_false==false){
+        if(th==4){};//debug
+        printf("pop---right\n");
+        left_true_right_false=true;
+        return NULL;
     }
-
-
-    printf("------------------pop------------------------\n");
+    printf("------------------created fin------------------------\n");
     return new_node;
 }
 
 node* convert_2_KDtree(point* arr, int split_portion){
     left_true_right_false=true;
-    return convert_2_KDtree_code(arr,1,1,-1,split_portion);
+    return convert_2_KDtree_code(arr,arr,1,1,0,split_portion);
 }
 int main(){
 //    point* orgarr;
@@ -257,8 +301,7 @@ int main(){
 
 
     point* orgarr;
-//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-    orgarr=super_gen_rand_arr(DATASET_NUM);
+    orgarr=super_gen_seq_arr(DATASET_NUM,true);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
@@ -267,31 +310,29 @@ int main(){
     arr2[0].values[0]=99999;
     print_nD_arr(orgarr);
  */
-/*
 //    test swap & quick sort
-//    point* testarr=super_gen_seq_arr(7,true);
-    point* testarr=super_gen_rand_arr(21);
-//    testarr[0].values[0]=99999;testarr[0].values[1]=99999;
+/*
+    point* testarr=super_gen_seq_arr(7,true);
+    testarr[0].values[0]=99999;testarr[0].values[1]=99999;
     print_nD_arr(testarr);
 //    swap(&testarr[3],&testarr[6]);
-    quicksort(testarr,1,21,2);
+    quicksort(testarr,1,7,1);
     printf("End\n");
     print_nD_arr(testarr);
 */
 
-
+/*
     //test super_selection
     point* selected;
     selected=super_selection(orgarr,"down",1,50);print_nD_arr(selected);
-    selected=super_selection(orgarr,"up",2,50);print_nD_arr(selected);
+    selected=super_selection(orgarr,"up",1,50);print_nD_arr(selected);
+*/
 
-/*
-//  test buliding KD tree //error with random
+//  test buliding KD tree
     node *tree;
-    tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
+    tree=convert_2_KDtree(orgarr,50);
     print_bt(tree);
     print2DUtil(tree,0);
-*/
 
     return 0;
 }
