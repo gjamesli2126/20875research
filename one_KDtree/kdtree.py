@@ -146,7 +146,9 @@ class KDCell :
 		
 		#if the bounding box is farther than the distance to your guess, stop
 		if (point.canIntersect(point.dist(guess), self.bounds) == False) :
-			return (guess, comps)
+			return (guess, comps)# stop the recursion if search Fin numbers.
+
+
 			
 		#if the current point is closer, change your guess
 		if (point.dist(self.median) < point.dist(guess)) :

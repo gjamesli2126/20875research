@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 7
+#define DATASET_NUM 15
 
 typedef struct point{
     float values[DIM];
@@ -89,7 +89,7 @@ int print_test_qsort(point* arr){
     return val;
 }
 void quicksort(point *orgarr,int first,int last,int for_which_dim){
-    int from_first,from_last,pivot,temp;
+    int from_first,from_last,pivot;
 //    int testing;
 //    int test_from_first_val;
 //    int test_from_last_val;
@@ -136,14 +136,25 @@ void print2DUtil(node *root, int space){
     for (i = COUNT; i < space; i++) printf(" ");
     printf("(");
     for (i = 0; i <DIM ; i++) {
-        printf("%.1f ",root->data.values[i]);
+        printf("%.1f  ",root->data.values[i]);
     }
     printf(")\n");
 //    printf("(%d,%d)\n", root->data.,root->data.y);
     print2DUtil(root->left, space);
 
 }
-int print_bt(struct node* root){
+void print_node(node* root){
+    int i;
+
+    printf("(");
+    for (i = 0; i <DIM ; i++) {
+        printf("%.1f ",root->data.values[i]);
+    }
+    printf(")th:%d\n",root->data.th);
+
+
+}
+int print_bt(node* root){
     static int count=0;
     int i;
     if(root==NULL) return 0;
@@ -158,34 +169,7 @@ int print_bt(struct node* root){
     print_bt(root->right);
     return count;
 }
-point* super_selection0(point *orgarr,const char *up_down,int choose_dim,int split_portion){
-    int portion=100/split_portion;// for annoy should change here! maybe: int->float
-    int orgsorted_size=orgarr[0].th;
-    point *new_arr;
-    int new_arr_size;
-    int i;
-    point *sorted_orgarr=deep_copy(orgarr);
-    quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
-    if(strcmp(up_down,"down")==0){
-        printf("DOWN\n");
-        if(orgsorted_size%2==0) new_arr_size=orgsorted_size/portion;// for annoy should change here!
-        else new_arr_size=orgsorted_size/portion+1;// for annoy should change here!
-//        new_arr_size=orgsorted_size/portion;
-        new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
-        for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
-    }else if(strcmp(up_down,"up")==0){
-        printf("UP\n");
-        new_arr_size=orgsorted_size/portion;// for annoy should change here!
-        new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
-        for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[orgsorted_size-new_arr_size+i];
 
-    }else{
-        printf("Debug: arr is empty & super_selection failed!!!\n");
-        exit(0);
-    }
-    new_arr[0].th=new_arr_size;
-    return new_arr;
-}
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,int split_portion){
     int portion=100/split_portion;// for annoy should change here! maybe: int->float
     int orgsorted_size=orgarr[0].th;
@@ -215,60 +199,46 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     new_arr[0].th=new_arr_size;
     return new_arr;
 }
-
-node* convert_2_KDtree_code(point* arrL,point* arrR,int th,int brute_force_range,int chosen_dim,int split_portion){
+bool left_true_right_false;
+node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_dim,int split_portion){
     node* new_node=(node*)malloc(sizeof(node));
-    if(arrL[0].th>brute_force_range){
-        printf("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
-        int i;
-//        new_node=(node*)malloc(sizeof(node));
-        point* new_arrL;
-        point* new_arrR;
-        new_arrL=super_selection(arrL,"down",chosen_dim,split_portion);
-        new_arrR=super_selection(arrL,"up",chosen_dim,split_portion);
-        for(i=0;i<DIM;i++) new_node->data.values[i]= new_arrL[0].values[i];
-        new_node->data.th=th;
-        th++;
-        chosen_dim++;
-        chosen_dim%=DIM;
-        print_bt(new_node);
-        print_nD_arr(new_arrL);
-        print_nD_arr(new_arrR);
-        new_node->left=convert_2_KDtree_code(new_arrL,new_arrR,th,brute_force_range,chosen_dim,split_portion);
+    point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
+    point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
+    int i;
+    printf("\nEach recusrsion array\n");
+    print_nD_arr(arr);
+    chosen_dim++;
+    chosen_dim%=DIM+1;
+    printf("Current Dim %d\n",chosen_dim);
+//    arr_left=deep_copy(super_selection(arr,"down",chosen_dim,split_portion));
+//    arr_right=deep_copy(super_selection(arr,"up",chosen_dim,split_portion));
+    arr_left=(super_selection(arr,"down",chosen_dim,split_portion));
+    arr_right=(super_selection(arr,"up",chosen_dim,split_portion));
+    new_node->data.th=th;
+    if(arr_left[0].th>=brute_force_range){
+        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+        new_node->left=convert_2_KDtree_code(arr_left,th++,brute_force_range,chosen_dim,split_portion);
     }else{
-
-        printf("pop---left\n");
-        return NULL;
+        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+        new_node->left=NULL;
     }
 
-    if (arrR[0].th>brute_force_range){
-        printf("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR\n");
-        int i;
-//        new_node=(node*)malloc(sizeof(node));
-        point* new_arrL;
-        point* new_arrR;
-        new_arrL=super_selection(arrL,"down",chosen_dim,split_portion);
-        new_arrR=super_selection(arrL,"up",chosen_dim,split_portion);
-        for(i=0;i<DIM;i++) new_node->data.values[i]= new_arrR[0].values[i];
-        new_node->data.th=th;
-        th++;
-        chosen_dim++;
-        chosen_dim%=DIM;
-        print_bt(new_node);
-
-        print_nD_arr(new_arrR);
-        print_nD_arr(new_arrL);
-        new_node->right=convert_2_KDtree_code(new_arrL,new_arrR,th,brute_force_range,chosen_dim,split_portion);
+    if(arr_right[0].th>=brute_force_range){
+        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+        new_node->right=convert_2_KDtree_code(arr_right,th++,brute_force_range,chosen_dim,split_portion);
     }else{
-        printf("pop---right\n");
-        return NULL;
+        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+        new_node->right=NULL;
     }
-    printf("------------------created fin------------------------\n");
+
+
+    printf("------------------pop------------------------\n");
     return new_node;
 }
 
 node* convert_2_KDtree(point* arr, int split_portion){
-    return convert_2_KDtree_code(arr,arr,1,1,0,split_portion);
+    left_true_right_false=true;
+    return convert_2_KDtree_code(arr,1,1,-1,split_portion);
 }
 int main(){
 //    point* orgarr;
@@ -278,7 +248,8 @@ int main(){
 
 
     point* orgarr;
-    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+    orgarr=super_gen_rand_arr(DATASET_NUM);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
@@ -310,6 +281,7 @@ int main(){
     tree=convert_2_KDtree(orgarr,50);
     print_bt(tree);
     print2DUtil(tree,0);
+
 
     return 0;
 }
