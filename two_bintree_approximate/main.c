@@ -178,18 +178,19 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
     int mid_index=(1+orgsorted_size)/portion;
+    printf("mid_INdex:\t%d\n",mid_index);
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
         new_arr_size=mid_index-1;
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=orgarr[mid_index].values[i];//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[mid_index].values[i];//deleted one or previous one
     }else if(strcmp(up_down,"up")==0){
 //        printf("UP\n");
         new_arr_size=orgsorted_size-mid_index;// for annoy should change here!
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[mid_index+i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=orgarr[mid_index].values[i];//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[mid_index].values[i];//deleted one or previous one
     }else{
         printf("Debug: arr is empty & super_selection failed!!!\n");
         exit(0);
@@ -279,19 +280,29 @@ int main(){
     print_nD_arr(testarr);
 */
 
-
-    //test super_selection
-    point* selected;
-    selected=super_selection(orgarr,"down",1,50);print_nD_arr(selected);
-    selected=super_selection(orgarr,"up",2,50);print_nD_arr(selected);
-
 /*
-//  test buliding KD tree //error with random
+    //test super_selection
+    printf("\n------------------------------------------------------------------\n");
+    point* qsarr=deep_copy(orgarr);quicksort(qsarr,1,DATASET_NUM,0);print_nD_arr(qsarr);
+    qsarr=deep_copy(orgarr);quicksort(qsarr,1,DATASET_NUM,1);print_nD_arr(qsarr);
+    qsarr=deep_copy(orgarr);quicksort(qsarr,1,DATASET_NUM,2);print_nD_arr(qsarr);
+
+    printf("\n------------------------------------------------------------------\n");
+    print_nD_arr(super_selection(orgarr,"down",0,50));//print_nD_arr(selected);
+    print_nD_arr(super_selection(orgarr,"down",1,50));//print_nD_arr(selected);
+    print_nD_arr(super_selection(orgarr,"down",2,50));//print_nD_arr(selected);
+    printf("\n------------------------------------------------------------------\n");
+    print_nD_arr(super_selection(orgarr,"up",0,50));//print_nD_arr(selected);
+    print_nD_arr(super_selection(orgarr,"up",1,50));//print_nD_arr(selected);
+    print_nD_arr(super_selection(orgarr,"up",2,50));//print_nD_arr(selected);
+*/
+
+//  test buliding KD tree //bug fixed
     node *tree;
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
-*/
+
 
     return 0;
 }
