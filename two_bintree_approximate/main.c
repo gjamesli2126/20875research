@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 15
+#define DATASET_NUM 5
 
 typedef struct point{
     float values[DIM];
@@ -178,6 +178,12 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
     int mid_index=(1+orgsorted_size)/portion;
 //    printf("mid_INdex:\t%d\n",mid_index);
+    if(orgsorted_size==1){
+        new_arr=(point*)malloc(sizeof(point));
+        new_arr[0].th=0;
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[1].values[i];//deleted one or previous one
+        return new_arr;
+    }
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
         new_arr_size=mid_index;
@@ -295,8 +301,8 @@ int main(){
 
 
     point* orgarr;
-    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+    orgarr=super_gen_rand_arr(DATASET_NUM,80);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
