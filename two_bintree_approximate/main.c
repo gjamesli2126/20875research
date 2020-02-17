@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 16
+#define DATASET_NUM 8
 #define MAX_INT_DEF 0xfffffff
 typedef struct point{
     float values[DIM];
@@ -167,18 +167,19 @@ int print_bt(node* root){
     return count;
 }
 
-point* super_selection(point *orgarr,const char *up_down,int choose_dim,int split_portion){
-    int portion=100/split_portion;// for annoy should change here! maybe: int->float
+point* super_selection(point *orgarr,const char *up_down,int choose_dim,int portion){
+//    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
+    // for GPU. Generate 32 kinds of portion
     int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
     int new_arr_size;
     int i;
-    //orginial_arr_size=sorted_arr_size
+    //orginial_arr_size is same as sorted_arr_size
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
-    int mid_index=(1+orgsorted_size)/portion;
+    int mid_index=(int)((1+orgsorted_size)/portion);
 //    printf("mid_INdex:\t%d\n",mid_index);
-    if(orgsorted_size==1){
+    if(orgsorted_size<=1){
         new_arr=(point*)malloc(sizeof(point));
         new_arr[0].th=0;
         for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[1].values[i];//deleted one or previous one
@@ -201,7 +202,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
         exit(0);
     }
 
-    new_arr[0].th=new_arr_size;
+    new_arr[0].th=(float)new_arr_size;
     return new_arr;
 }
 node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,int split_portion){
@@ -297,7 +298,8 @@ void k_nearest_search_code(int k,node* root,bool approximate,point target,int ch
             (is_leaf)) {//(value comapre|| init)&&(is leaf)
             printf("S\t");//S means store!
             distance_calc(target, &root->data);
-            push_front(nearest_points, root->data, k,true);
+//            push_front(nearest_points, root->data, k,true);
+            push_back(nearest_points, root->data, k,true);
         }//need modified when k>1
         if (target.values[chosen_dim] < root->data.values[chosen_dim]) {
             chosen_dim++;
@@ -344,6 +346,9 @@ point* k_nearest_search(int k,node* tree,bool approximate,point target){
     k_nearest_search_code(k,tree,approximate,target,0,nearest_points);
     printf("\n");
     return nearest_points;
+}
+int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
+    return parallel_num/scaling;
 }
 int main(){
     point* orgarr;
@@ -397,12 +402,13 @@ int main(){
     push_front(org,target1,3);print_nD_arr(org);
     push_front(org,target1,3);print_nD_arr(org);
 */
-
+/*
 //  test buliding KD tree //bug fixed//succeed
     node *tree;
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
+    */
 /*
     //test approximate searching k=1
     point target={{31,14,73},0};
@@ -417,12 +423,13 @@ int main(){
     printf("ditance %.1f",distance_calc(p1,p2));
     exit(0);
 */
-
-//test searching k>1--un check with analysis yet
+/*
+//test searching k>1-- approximate and back tracking both work
     point target={{14,114,214},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
+*/
 /*
     //test push back
     printf("------------test push\n");
@@ -436,7 +443,15 @@ int main(){
     push_back(org,target1,3,false);print_nD_arr(org);
     push_back(org,target1,3,false);print_nD_arr(org);
 */
-
-
+    //build tree with specific portion
+    node *tree;
+//    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,32/2));//for gpu
+    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,16));//for testing
+    print_bt(tree);
+    print2DUtil(tree,0);
+    point target={{14,114,214},0};
+    printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
+    point* found=k_nearest_search(5,tree,false,target);//true: approximate search
+    print_nD_arr(found);
     return 0;
 }
