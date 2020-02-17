@@ -6,11 +6,11 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 5
-
+#define DATASET_NUM 16
+#define MAX_INT_DEF 0xfffffff
 typedef struct point{
     float values[DIM];
-    int th;
+    float th;//store distance or quantity
 }point;
 
 typedef struct node{
@@ -26,17 +26,17 @@ int mypow(int x,int y){
     return result;
 }
 void print_nD_arr(point* arr){
-    int size=arr[0].th;
+    int size=(int)roundf(arr[0].th);//roundf: in order to make sure floating error does not affect size number!
     printf("index");
     for (int k = 0; k <DIM ; ++k) printf("\t\tdata[%d]\t",k);
-    printf("\t\tth\n");
+    printf("\t\tth/dist\n");
 
     for (int i = 0; i <=size ; ++i) {
         printf("%d\t\t",i);
         for (int j = 0; j <DIM ; ++j) {
             printf("%f\t\t",arr[i].values[j]);
         }
-        printf("%d\n",arr[i].th);
+        printf("%d\n",(int)arr[i].th);
     }
 }
 void swap(point *x,point *y){
@@ -56,7 +56,7 @@ point *super_gen_seq_arr(int number,bool reversed){
         for (dim = 0; dim <DIM ; dim++) {
             arr[i].values[dim]=(float)(dim*100+j);//init
         }
-        arr[i].th=1;//init
+        arr[i].th=MAX_INT_DEF;//init
     }
     arr[0].th=number;
     return arr;
@@ -71,13 +71,13 @@ point *super_gen_rand_arr(int number,int max){
 
 //            arr[i].values[dim]=((float)(rand()%100));//init
         }
-        arr[i].th=1;//init
+        arr[i].th=MAX_INT_DEF;//init
     }
     arr[0].th=number;
     return arr;
 }
 point* deep_copy(point *arr){
-    int size=arr[0].th;
+    int size=(int)roundf(arr[0].th);
     point* newarr=(point*)malloc(sizeof(point)*(size+1));
     memcpy(newarr,arr, sizeof(point)*(size+1));
     return newarr;
@@ -85,8 +85,8 @@ point* deep_copy(point *arr){
 
 int print_test_qsort(point* arr){
     int val=0;
-    for (int i = 1; i <=arr[0].th ; ++i) {
-        val+=mypow(10,arr[0].th-i)*(int)arr[i].values[0];
+    for (int i = 1; i <=(int)roundf(arr[0].th) ; ++i) {
+        val+=mypow(10,(int)roundf(arr[0].th)-i)*(int)arr[i].values[0];
     }
     return val;
 }
@@ -149,7 +149,7 @@ void print_node(node* root){
     for (i = 0; i <DIM ; i++) {
         printf("%.1f ",root->data.values[i]);
     }
-    printf(")th:%d\n",root->data.th);
+    printf(")th:%d\n",(int)roundf(root->data.th));
 }
 int print_bt(node* root){
     static int count=0;
@@ -160,7 +160,7 @@ int print_bt(node* root){
     for (i = 0; i <DIM ; i++) {
         printf("%.1f ",root->data.values[i]);
     }
-    printf(")th:%d\n",root->data.th);
+    printf(")th:%d\n",(int)roundf(root->data.th));
     count++;
     print_bt(root->left);
     print_bt(root->right);
@@ -169,7 +169,7 @@ int print_bt(node* root){
 
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,int split_portion){
     int portion=100/split_portion;// for annoy should change here! maybe: int->float
-    int orgsorted_size=orgarr[0].th;
+    int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
     int new_arr_size;
     int i;
@@ -204,7 +204,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     new_arr[0].th=new_arr_size;
     return new_arr;
 }
-node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_dim,int split_portion){
+node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,int split_portion){
     node* new_node=(node*)malloc(sizeof(node));
     point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
@@ -217,12 +217,12 @@ node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_d
     arr_left=(super_selection(arr,"down",chosen_dim,split_portion));
     arr_right=(super_selection(arr,"up",chosen_dim,split_portion));
     new_node->data.th=th;
-    if(arr_left[0].th>=brute_force_range){
+    if((int)roundf(arr_left[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
         printf("L\n");
         print_nD_arr(arr_left);
         print_node(new_node);
-        new_node->left=convert_2_KDtree_code(arr_left,th++,brute_force_range,chosen_dim,split_portion);
+        new_node->left=convert_2_KDtree_code(arr_left,th,brute_force_range,chosen_dim,split_portion);
     }else{
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
         printf("L----NULL\n");
@@ -230,12 +230,12 @@ node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_d
         print_node(new_node);
         new_node->left=NULL;
     }
-    if(arr_right[0].th>=brute_force_range){
+    if((int)roundf(arr_right[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
         printf("R\n");
         print_nD_arr(arr_right);
         print_node(new_node);
-        new_node->right=convert_2_KDtree_code(arr_right,th++,brute_force_range,chosen_dim,split_portion);
+        new_node->right=convert_2_KDtree_code(arr_right,th,brute_force_range,chosen_dim,split_portion);
     }else{
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
         printf("R----NULL\n");
@@ -250,13 +250,14 @@ node* convert_2_KDtree_code(point* arr,int th,int brute_force_range,int chosen_d
 node* convert_2_KDtree(point* arr, int split_portion){
     return convert_2_KDtree_code(arr,1,1,-1,split_portion);
 }
-void push_front(point* org_arr,point desire_push,int k){
+void push_front(point* org_arr,point desire_push,int k,bool k_full_lock){//k_full_lock: true to avoid element be popped if queue overflow!
 //    printf("----------------------------------------------------\n");
     //need to update the arr[0].th as well!
+    if(k_full_lock && k<=org_arr[0].th) return;
     int i;
     org_arr[0].th+=1-(int)(k<=org_arr[0].th);
 //    printf("%d\n",org_arr[0].th);
-    for (i = org_arr[0].th; i>1 ; i--) {
+    for (i = (int)roundf(org_arr[0].th); i>1 ; i--) {
 //        printf(" %d",i);
         org_arr[i]=org_arr[i-1];
     }
@@ -264,45 +265,79 @@ void push_front(point* org_arr,point desire_push,int k){
     org_arr[1]=desire_push;
 //    return org_arr;
 }
-
+void distance_calc(point target, point *on_leaf){
+    double dist=0;
+    int dim;
+    for (dim = 0; dim <DIM ; dim++) {
+        dist+= pow(target.values[dim]-on_leaf->values[dim],2);
+    }
+    dist=pow(dist,0.5);
+    on_leaf->th=(float)dist;
+//    return (float) dist;
+}
 void k_nearest_search_code(int k,node* root,bool approximate,point target,int chosen_dim,point* nearest_points){
     //under occasion: approximate==true && only one point
     // this recursion is for approximate kNN search where k=1
-    if(root==NULL) return;
-    else printf("--->%.1f",root->data.values[chosen_dim]);
-    if(nearest_points[1].values[chosen_dim]!=root->data.values[chosen_dim] || nearest_points[0].th==0){
-        printf("S\t");//S means store!
-        push_front(nearest_points,root->data,k);
-    }//need modified when k>1
-    if(target.values[chosen_dim]<root->data.values[chosen_dim]){
-        chosen_dim++;
-        chosen_dim%=DIM;
-        k_nearest_search_code(k,root->left,approximate,target,chosen_dim,nearest_points);
-    }else{
-        chosen_dim++;
-        chosen_dim%=DIM;
-        k_nearest_search_code(k,root->right,approximate,target,chosen_dim,nearest_points);
+    if(nearest_points[0].th>=(float)k) return;//return when have found k's element
+    if(approximate) {
+        if (root == NULL) return;
+        else printf("--->%.1f", root->data.values[chosen_dim]);
+        bool is_leaf = (root->left == NULL) && (root->right == NULL);
+        if ((nearest_points[1].values[chosen_dim] != root->data.values[chosen_dim] || nearest_points[0].th == 0) &&
+            (is_leaf)) {//(value comapre|| init)&&(is leaf)
+            printf("S\t");//S means store!
+            distance_calc(target, &root->data);
+            push_front(nearest_points, root->data, k,true);
+        }//need modified when k>1
+        if (target.values[chosen_dim] < root->data.values[chosen_dim]) {
+            chosen_dim++;
+            chosen_dim %= DIM;
+            k_nearest_search_code(k, root->left, approximate, target, chosen_dim, nearest_points);
+        } else {
+            chosen_dim++;
+            chosen_dim %= DIM;
+            k_nearest_search_code(k, root->right, approximate, target, chosen_dim, nearest_points);
+        }
+    }else {
+        if(chosen_dim==0) printf("\n");//for printing
+        if (root == NULL) return;
+        else{printf("----->(");for (int i = 0; i <DIM ; ++i) {printf("%.1f ", root->data.values[i]); }printf(")");}
+        bool is_leaf = (root->left == NULL) && (root->right == NULL);
+        if ((nearest_points[1].values[chosen_dim] != root->data.values[chosen_dim] || nearest_points[0].th == 0) && (is_leaf)) {//(value comapre|| init)&&(is leaf)
+            printf("S\t");//S means store!
+            distance_calc(target, &root->data);
+            push_front(nearest_points, root->data, k,true);
+        }//need modified when k>1
+        if (target.values[chosen_dim] < root->data.values[chosen_dim]) {
+            chosen_dim++;
+            chosen_dim %= DIM;
+            k_nearest_search_code(k, root->left, approximate, target, chosen_dim, nearest_points);
+            if(root->right!=NULL){
+                k_nearest_search_code(k, root->right, approximate, target, chosen_dim, nearest_points);
+            }
+        } else {
+            chosen_dim++;
+            chosen_dim %= DIM;
+            k_nearest_search_code(k, root->right, approximate, target, chosen_dim, nearest_points);
+            if(root->left!=NULL){
+                k_nearest_search_code(k, root->left, approximate, target, chosen_dim, nearest_points);
+            }
+        }
     }
-
 
 }
 point* k_nearest_search(int k,node* tree,bool approximate,point target){
     point* nearest_points=(point*)malloc(sizeof(point)*(k+1));
     nearest_points[0].th=0;
+    printf("value searched(S:stored): ");
     k_nearest_search_code(k,tree,approximate,target,0,nearest_points);
     printf("\n");
     return nearest_points;
 }
 int main(){
-//    point* orgarr;
-//    orgarr=deep_copy(super_gen_seq_arr(DATASET_NUM));
-//    orgarr=deep_copy(super_gen_rand_arr(DATASET_NUM));
-//    print_nD_arr(orgarr);
-
-
     point* orgarr;
-//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
@@ -351,29 +386,33 @@ int main(){
     push_front(org,target1,3);print_nD_arr(org);
     push_front(org,target1,3);print_nD_arr(org);
 */
-
-
-
 //  test buliding KD tree //bug fixed//succeed
     node *tree;
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
 /*
-    //test searching k=1
-    point target={{3,103,204},0};
+    //test approximate searching k=1
+    point target={{31,14,73},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(1,tree,true,target);//true: approximate search
     print_nD_arr(found);
+  */
+/*
+    //test distance correctness--succeed
+    point p1={{3,7,2},0};
+    point p2={{12,47,25},0};
+    printf("ditance %.1f",distance_calc(p1,p2));
+    exit(0);
 */
 
-/*
-//test searching k>1--untest
-    point target={{3,103,204},0};
+//test searching k>1--un check with analysis yet
+    point target={{14,114,214},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
-    point* found=k_nearest_search(3,tree,true,target);//true: approximate search
+    point* found=k_nearest_search(20,tree,false,target);//true: approximate search
     print_nD_arr(found);
-*/
+
+
 
     return 0;
 }
