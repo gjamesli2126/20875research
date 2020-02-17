@@ -141,7 +141,6 @@ void print2DUtil(node *root, int space){
     printf(")\n");
 //    printf("(%d,%d)\n", root->data.,root->data.y);
     print2DUtil(root->left, space);
-
 }
 void print_node(node* root){
     int i;
@@ -151,8 +150,6 @@ void print_node(node* root){
         printf("%.1f ",root->data.values[i]);
     }
     printf(")th:%d\n",root->data.th);
-
-
 }
 int print_bt(node* root){
     static int count=0;
@@ -176,22 +173,23 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int spli
     point *new_arr;
     int new_arr_size;
     int i;
+    //orginial_arr_size=sorted_arr_size
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
     int mid_index=(1+orgsorted_size)/portion;
-    printf("mid_INdex:\t%d\n",mid_index);
+//    printf("mid_INdex:\t%d\n",mid_index);
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
-        new_arr_size=mid_index-1;
+        new_arr_size=mid_index;
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[mid_index].values[i];//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
     }else if(strcmp(up_down,"up")==0){
 //        printf("UP\n");
         new_arr_size=orgsorted_size-mid_index;// for annoy should change here!
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[mid_index+i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[mid_index].values[i];//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
     }else{
         printf("Debug: arr is empty & super_selection failed!!!\n");
         exit(0);
@@ -297,8 +295,8 @@ int main(){
 
 
     point* orgarr;
-//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
@@ -355,13 +353,21 @@ int main(){
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
-
-    //test searching k=1 //succeed
+/*
+    //test searching k=1
     point target={{3,103,204},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(1,tree,true,target);//true: approximate search
     print_nD_arr(found);
+*/
 
+/*
+//test searching k>1--untest
+    point target={{3,103,204},0};
+    printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
+    point* found=k_nearest_search(3,tree,true,target);//true: approximate search
+    print_nD_arr(found);
+*/
 
     return 0;
 }
