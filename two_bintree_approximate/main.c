@@ -355,18 +355,13 @@ int main(){
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
-/*
+
     //test searching k=1 //succeed
     point target={{3,103,204},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(1,tree,true,target);//true: approximate search
     print_nD_arr(found);
-*/
-    //test searching k>1
-    point target={{3,103,204},0};
-    printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
-    point* found=k_nearest_search(3,tree,true,target);//true: approximate search
-    print_nD_arr(found);
+
 
     return 0;
 }
