@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 8
+#define DATASET_NUM 16
 #define MAX_INT_DEF 0xfffffff
 typedef struct point{
     float values[DIM];
@@ -166,37 +166,67 @@ int print_bt(node* root){
     print_bt(root->right);
     return count;
 }
-
-point* super_selection(point *orgarr,const char *up_down,int choose_dim,int portion){
+int super_rand(int min,int max){
+    srand(time(NULL));
+    return rand()%(max+1-min)+min;
+}
+int find_mid_index(point* sorted_arr,point target,int chosen_dim){
+    int i;
+    for(i=1;i<(int)sorted_arr[0].th;i++){
+        if(sorted_arr[i].values[chosen_dim]>=target.values[chosen_dim]) return i-1;//previous index
+    }
+}
+point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool random_pick_med){
 //    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
     // for GPU. Generate 32 kinds of portion
     int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
     int new_arr_size;
     int i;
+    int mid_index;
+    point mid_point;
     //orginial_arr_size is same as sorted_arr_size
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
-    int mid_index=(int)((1+orgsorted_size)/portion);
-//    printf("mid_INdex:\t%d\n",mid_index);
-    if(orgsorted_size<=1){
-        new_arr=(point*)malloc(sizeof(point));
+    if (random_pick_med==true && (int)sorted_orgarr[0].th>1){
+        //rand pick 2 points and calc the mean with random only pick an index with randonly pick 2 index
+        int r1,r2;
+        point val1,val2;
+        r1=super_rand(1,(int)sorted_orgarr[0].th);
+        do{
+            r2=super_rand(1,(int)sorted_orgarr[0].th);
+        }while(r1==r2);//randomed value cannot be the same
+        //calc where should the index should be inserted in the array
+        val1=sorted_orgarr[r1];
+        val2=sorted_orgarr[r2];
+        //find out the mid value
+        for(i=0;i<DIM;i++) mid_point.values[i]=(val1.values[i]+val2.values[i])/2;//ignore the th value//FUTURE: can be simplify to one dim only
+        //find out the cutting index--with dim
+        mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
+        printf("\nusing %d as mid_index\n",mid_index);
+    }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
+        mid_index = (int) ((1 + orgsorted_size) / 2);
+        for(i=0;i<DIM;i++) mid_point.values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
+    }else if((int)sorted_orgarr[0].th<=1){
+        new_arr=(point*)malloc(sizeof(point));//one point array
         new_arr[0].th=0;
         for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[1].values[i];//deleted one or previous one
         return new_arr;
     }
+    //for when only 1 element left
+
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
         new_arr_size=mid_index;
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
     }else if(strcmp(up_down,"up")==0){
 //        printf("UP\n");
         new_arr_size=orgsorted_size-mid_index;// for annoy should change here!
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[mid_index+i];
-        for(i=0;i<DIM;i++) new_arr[0].values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
+        for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
     }else{
         printf("Debug: arr is empty & super_selection failed!!!\n");
         exit(0);
@@ -205,7 +235,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,int port
     new_arr[0].th=(float)new_arr_size;
     return new_arr;
 }
-node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,int split_portion){
+node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,bool random_med){
     node* new_node=(node*)malloc(sizeof(node));
     point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
@@ -215,15 +245,17 @@ node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen
     chosen_dim++;
     chosen_dim%=DIM;
     printf("Current Dim %d\n",chosen_dim);
-    arr_left=(super_selection(arr,"down",chosen_dim,split_portion));
-    arr_right=(super_selection(arr,"up",chosen_dim,split_portion));
+//    printf("updown st\n");
+    arr_left=(super_selection(arr,"down",chosen_dim,random_med));//too slow!!!!!!!!!!!fix here~~
+    arr_right=(super_selection(arr,"up",chosen_dim,random_med));
+//    printf("updown End\n");
     new_node->data.th=th;
     if((int)roundf(arr_left[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
         printf("L\n");
         print_nD_arr(arr_left);
         print_node(new_node);
-        new_node->left=convert_2_KDtree_code(arr_left,th,brute_force_range,chosen_dim,split_portion);
+        new_node->left=convert_2_KDtree_code(arr_left,th,brute_force_range,chosen_dim,random_med);
     }else{
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
         printf("L----NULL\n");
@@ -236,7 +268,7 @@ node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen
         printf("R\n");
         print_nD_arr(arr_right);
         print_node(new_node);
-        new_node->right=convert_2_KDtree_code(arr_right,th,brute_force_range,chosen_dim,split_portion);
+        new_node->right=convert_2_KDtree_code(arr_right,th,brute_force_range,chosen_dim,random_med);
     }else{
         for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
         printf("R----NULL\n");
@@ -248,8 +280,8 @@ node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen
     return new_node;
 }
 
-node* convert_2_KDtree(point* arr, int split_portion){
-    return convert_2_KDtree_code(arr,1,1,-1,split_portion);
+node* convert_2_KDtree(point* arr, bool random_med){
+    return convert_2_KDtree_code(arr,1,1,-1,random_med);
 }
 void push_front(point* org_arr,point desire_push,int k,bool k_full_lock){//k_full_lock: true to avoid element be popped if queue overflow!
 //    printf("----------------------------------------------------\n");
@@ -352,8 +384,8 @@ int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
 }
 int main(){
     point* orgarr;
-//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
@@ -443,15 +475,28 @@ int main(){
     push_back(org,target1,3,false);print_nD_arr(org);
     push_back(org,target1,3,false);print_nD_arr(org);
 */
+/*
+    //test rand_ find_mid_index
+    point target={{4.5,104.5,204.5},0};
+    int chosen_index;
+    chosen_index=find_mid_index(orgarr,target,0);
+    printf("point shoud be at %d index",chosen_index);
+*/
+
+
     //build tree with specific portion
     node *tree;
 //    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,32/2));//for gpu
-    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,16));//for testing
+    tree=convert_2_KDtree(orgarr,true);//for testing
     print_bt(tree);
     print2DUtil(tree,0);
+    exit(0);
     point target={{14,114,214},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
+
+
+
     return 0;
 }
