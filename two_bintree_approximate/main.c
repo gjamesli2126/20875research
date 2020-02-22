@@ -6,10 +6,11 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 16
+#define DATASET_NUM 8
 #define MAX_INT_DEF 0xfffffff
-#define max_clock_stamp 4096
-clock_t run_time_debug[max_clock_stamp];
+#define max_clock_stamp 10240
+#define max_clock_store 8
+clock_t run_time_debug[max_clock_store];
 int clock_index=0;
 typedef struct point{
     float values[DIM];
@@ -175,19 +176,21 @@ int super_rand(int min,int max){
 }
 int find_mid_index(point* sorted_arr,point target,int chosen_dim){
     int i;
-    for(i=1;i<(int)sorted_arr[0].th;i++){
+    for(i=1;i<=(int)sorted_arr[0].th;i++){
         if(sorted_arr[i].values[chosen_dim]>=target.values[chosen_dim]) return i-1;//previous index
     }
 }
 void show_time(char* str){
-    run_time_debug[clock_index]=clock();
-    printf("%d____%.1lf ms__ %s\n",clock_index,(double)(1000*(run_time_debug[clock_index]-run_time_debug[clock_index-1])/CLOCKS_PER_SEC),str);
+    run_time_debug[clock_index%max_clock_store]=clock();
+    printf("%d____%d ms__ %s\n",clock_index,(int)(1000*(run_time_debug[clock_index%max_clock_store]-run_time_debug[((clock_index-1))%max_clock_store])/CLOCKS_PER_SEC),str);
     if(clock_index==max_clock_stamp) exit(10);
     clock_index++;
 }
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool random_pick_med){
 //    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
     // for GPU. Generate 32 kinds of portion
+    printf("--------new super selection----------\n");
+
     int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
     int new_arr_size;
@@ -199,6 +202,8 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
     show_time("Quick sort");
+//    if(orgarr[0].th<=3) random_pick_med=false;
+
     if (random_pick_med==true && (int)sorted_orgarr[0].th>1){
         //rand pick 2 points and calc the mean with random only pick an index with randonly pick 2 index
         int rindex1,rindex2;//index1 & index2
@@ -209,9 +214,9 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
             rindex2=super_rand(1,(int)sorted_orgarr[0].th);
             if(rindex1==rindex2) rindex2= (rindex2+super_rand(0,(int)sorted_orgarr[0].th-2))%(int)sorted_orgarr[0].th+1;
                 //org rindex2+- rand()
-
         }while(rindex1==rindex2);//randomed value cannot be the same//but condition variable is slow So this is just a backup plan
         show_time("find rindex2");
+        printf("index=%d,%d\n",rindex1,rindex2);
         //calc where should the index should be inserted in the array
         val1=sorted_orgarr[rindex1];
         val2=sorted_orgarr[rindex2];
@@ -221,7 +226,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         //find out the cutting index--with dim
         mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
 
-        printf("\nusing %d as mid_index\n",mid_index);
+        printf("using %.1f as mid_index\n",((float)mid_index+0.5));
         show_time("find mid_index");
 
     }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
@@ -231,6 +236,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         new_arr=(point*)malloc(sizeof(point));//one point array
         new_arr[0].th=0;
         for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[1].values[i];//deleted one or previous one
+        show_time("Edge-- End of leaf");
         return new_arr;
     }
     //for when only 1 element left
@@ -241,12 +247,14 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
         for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
+        show_time("down arr created!");
     }else if(strcmp(up_down,"up")==0){
 //        printf("UP\n");
         new_arr_size=orgsorted_size-mid_index;// for annoy should change here!
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[mid_index+i];
         for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
+        show_time("up arr created!");
     }else{
         printf("Debug: arr is empty & super_selection failed!!!\n");
         exit(0);
@@ -404,8 +412,8 @@ int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
 }
 int main(){
     point* orgarr;
-    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+//    orgarr=super_gen_seq_arr(DATASET_NUM,true);
+    orgarr=super_gen_rand_arr(DATASET_NUM,80);
     print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
