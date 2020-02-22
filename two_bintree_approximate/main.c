@@ -8,6 +8,9 @@
 #define DIM 3
 #define DATASET_NUM 16
 #define MAX_INT_DEF 0xfffffff
+#define max_clock_stamp 4096
+clock_t run_time_debug[max_clock_stamp];
+int clock_index=0;
 typedef struct point{
     float values[DIM];
     float th;//store distance or quantity
@@ -176,6 +179,12 @@ int find_mid_index(point* sorted_arr,point target,int chosen_dim){
         if(sorted_arr[i].values[chosen_dim]>=target.values[chosen_dim]) return i-1;//previous index
     }
 }
+void show_time(char* str){
+    run_time_debug[clock_index]=clock();
+    printf("%d____%.1lf ms__ %s\n",clock_index,(double)(1000*(run_time_debug[clock_index]-run_time_debug[clock_index-1])/CLOCKS_PER_SEC),str);
+    if(clock_index==max_clock_stamp) exit(10);
+    clock_index++;
+}
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool random_pick_med){
 //    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
     // for GPU. Generate 32 kinds of portion
@@ -186,24 +195,35 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     int mid_index;
     point mid_point;
     //orginial_arr_size is same as sorted_arr_size
+    show_time("initialize super_selection");
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
+    show_time("Quick sort");
     if (random_pick_med==true && (int)sorted_orgarr[0].th>1){
         //rand pick 2 points and calc the mean with random only pick an index with randonly pick 2 index
-        int r1,r2;
+        int rindex1,rindex2;//index1 & index2
         point val1,val2;
-        r1=super_rand(1,(int)sorted_orgarr[0].th);
+        rindex1=super_rand(1,(int)sorted_orgarr[0].th);
+        show_time("find rindex1");
         do{
-            r2=super_rand(1,(int)sorted_orgarr[0].th);
-        }while(r1==r2);//randomed value cannot be the same
+            rindex2=super_rand(1,(int)sorted_orgarr[0].th);
+            if(rindex1==rindex2) rindex2= (rindex2+super_rand(0,(int)sorted_orgarr[0].th-2))%(int)sorted_orgarr[0].th+1;
+                //org rindex2+- rand()
+
+        }while(rindex1==rindex2);//randomed value cannot be the same//but condition variable is slow So this is just a backup plan
+        show_time("find rindex2");
         //calc where should the index should be inserted in the array
-        val1=sorted_orgarr[r1];
-        val2=sorted_orgarr[r2];
+        val1=sorted_orgarr[rindex1];
+        val2=sorted_orgarr[rindex2];
         //find out the mid value
         for(i=0;i<DIM;i++) mid_point.values[i]=(val1.values[i]+val2.values[i])/2;//ignore the th value//FUTURE: can be simplify to one dim only
+        show_time("find virtual point");
         //find out the cutting index--with dim
         mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
+
         printf("\nusing %d as mid_index\n",mid_index);
+        show_time("find mid_index");
+
     }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
         mid_index = (int) ((1 + orgsorted_size) / 2);
         for(i=0;i<DIM;i++) mid_point.values[i]=((sorted_orgarr[mid_index].values[i]+sorted_orgarr[mid_index+1].values[i])/2);//deleted one or previous one
@@ -214,7 +234,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         return new_arr;
     }
     //for when only 1 element left
-
+    show_time("figure out mid_point & mid_split");
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
         new_arr_size=mid_index;
@@ -487,6 +507,7 @@ int main(){
     //build tree with specific portion
     node *tree;
 //    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,32/2));//for gpu
+    run_time_debug[0]=clock();
     tree=convert_2_KDtree(orgarr,true);//for testing
     print_bt(tree);
     print2DUtil(tree,0);
