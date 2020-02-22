@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #define COUNT 20
 #define DIM 3
-#define DATASET_NUM 8
+#define DATASET_NUM 16
 #define MAX_INT_DEF 0xfffffff
 #define max_clock_stamp 10240
 #define max_clock_store 8
@@ -410,11 +410,52 @@ point* k_nearest_search(int k,node* tree,bool approximate,point target){
 int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
     return parallel_num/scaling;
 }
+void write_data_to_txt(char* fname,point* arr){
+    FILE *f=fopen(fname,"w");
+    if(f==NULL) exit(2);
+    int k,i;
+
+    fprintf_s(f,"%d %d\n",DIM,(int)arr[0].th);
+    for (i = 1; i <=(int)arr[0].th ; ++i) {
+//        fprintf_s(f,"%d\t\t",i);
+        for (int j = 0; j <DIM ; ++j) {
+            fprintf_s(f,"%f\t\t",arr[i].values[j]);
+        }
+        fprintf_s(f,"%d\n",(int)arr[i].th);
+    }
+    fclose(f);
+}
+point* read_data_from_txt(char* fname){
+    FILE *f;
+    char *orgarr;//have to mind the dataset length!!
+    f=fopen(fname,"r+");
+    if(f==NULL) exit(2);
+    int dim,num_data,i,j;
+    fscanf(f,"%d %d\n",&dim,&num_data);//second line to read info
+    printf("dim:%d\tdatanum:%d\n",dim,num_data);
+    float buffdata[num_data+1][dim];
+    int buffth[num_data];
+
+    for(i=1;i<=num_data;i++){
+        //perline
+        for(j=0;j<dim;j++) fscanf(f,"%f\t\t",&buffdata[i][j]);
+        fscanf(f,"%d\n",&buffth[i]);
+    }
+
+    for (int i = 1; i <=num_data ; ++i) {
+        for (int j = 0; j <dim ; ++j) {
+            printf("%f\t\t",buffdata[i][j]);
+        }
+        printf("%d\n",buffth[i]);
+    }
+    fclose(f);
+
+}
 int main(){
     point* orgarr;
 //    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-    orgarr=super_gen_rand_arr(DATASET_NUM,80);
-    print_nD_arr(orgarr);//print!
+//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+//    print_nD_arr(orgarr);//print!
 //    point* arr2;
 /* test deepcopy--successful
  * arr2=orgarr;//link
@@ -511,7 +552,7 @@ int main(){
     printf("point shoud be at %d index",chosen_index);
 */
 
-
+/*
     //build tree with specific portion
     node *tree;
 //    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,32/2));//for gpu
@@ -525,7 +566,12 @@ int main(){
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
 
+*/
 
-
+    //ouput generated point!
+//    write_data_to_txt("16points_rand.txt",orgarr);
+//
+    //input generated data point
+    read_data_from_txt("16points_rand.txt");
     return 0;
 }
