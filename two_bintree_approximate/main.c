@@ -433,23 +433,19 @@ point* read_data_from_txt(char* fname){
     int dim,num_data,i,j;
     fscanf(f,"%d %d\n",&dim,&num_data);//second line to read info
     printf("dim:%d\tdatanum:%d\n",dim,num_data);
-    float buffdata[num_data+1][dim];
-    int buffth[num_data];
-
+//    float buffdata[num_data+1][dim];
+//    int buffth[num_data];
+    point *input;
+    input=(point*)malloc(sizeof(point)*(num_data+1));
     for(i=1;i<=num_data;i++){
         //perline
-        for(j=0;j<dim;j++) fscanf(f,"%f\t\t",&buffdata[i][j]);
-        fscanf(f,"%d\n",&buffth[i]);
-    }
-
-    for (int i = 1; i <=num_data ; ++i) {
-        for (int j = 0; j <dim ; ++j) {
-            printf("%f\t\t",buffdata[i][j]);
-        }
-        printf("%d\n",buffth[i]);
+        for(j=0;j<dim;j++) fscanf(f,"%f\t\t",&input[i].values[j]);
+        fscanf(f,"%f\n",&input[i].th);
     }
     fclose(f);
+    input[0].th=(float)num_data;
 
+    return input;
 }
 int main(){
     point* orgarr;
@@ -571,7 +567,11 @@ int main(){
     //ouput generated point!
 //    write_data_to_txt("16points_rand.txt",orgarr);
 //
+/*
     //input generated data point
-    read_data_from_txt("16points_rand.txt");
+    point* got_arr;
+    got_arr=read_data_from_txt("16points_rand.txt");
+    print_nD_arr(got_arr);
+*/
     return 0;
 }
