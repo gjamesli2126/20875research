@@ -5,11 +5,12 @@
 #include <math.h>
 #include <stdbool.h>
 #define COUNT 20
-#define DIM 3
-#define DATASET_NUM 16
+
+#define DATASET_NUM 9
 #define MAX_INT_DEF 0xfffffff
 #define max_clock_stamp 10240
 #define max_clock_store 8
+#define DIM 3
 clock_t run_time_debug[max_clock_store];
 int clock_index=0;
 typedef struct point{
@@ -42,6 +43,18 @@ void print_nD_arr(point* arr){
         }
         printf("%d\n",(int)arr[i].th);
     }
+}
+void print_this_point_woth(point thispoint){
+    printf("(");
+    for (int i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
+    printf("\b\b)");
+}
+void print_this_point(point thispoint){
+    printf("(");
+    for (int i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
+    printf("\b\b)_");
+    printf("%.1f",thispoint.th);
+    printf("\n");
 }
 void swap(point *x,point *y){
     point tmp;
@@ -198,10 +211,10 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     int mid_index;
     point mid_point;
     //orginial_arr_size is same as sorted_arr_size
-    show_time("initialize super_selection");
+//    show_time("initialize super_selection");
     point *sorted_orgarr=deep_copy(orgarr);
     quicksort(sorted_orgarr,1,orgsorted_size,choose_dim);
-    show_time("Quick sort");
+//    show_time("Quick sort");
 //    if(orgarr[0].th<=3) random_pick_med=false;
 
     if (random_pick_med==true && (int)sorted_orgarr[0].th>1){
@@ -209,25 +222,25 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         int rindex1,rindex2;//index1 & index2
         point val1,val2;
         rindex1=super_rand(1,(int)sorted_orgarr[0].th);
-        show_time("find rindex1");
+//        show_time("find rindex1");
         do{
             rindex2=super_rand(1,(int)sorted_orgarr[0].th);
             if(rindex1==rindex2) rindex2= (rindex2+super_rand(0,(int)sorted_orgarr[0].th-2))%(int)sorted_orgarr[0].th+1;
                 //org rindex2+- rand()
         }while(rindex1==rindex2);//randomed value cannot be the same//but condition variable is slow So this is just a backup plan
-        show_time("find rindex2");
+//        show_time("find rindex2");
         printf("index=%d,%d\n",rindex1,rindex2);
         //calc where should the index should be inserted in the array
         val1=sorted_orgarr[rindex1];
         val2=sorted_orgarr[rindex2];
         //find out the mid value
         for(i=0;i<DIM;i++) mid_point.values[i]=(val1.values[i]+val2.values[i])/2;//ignore the th value//FUTURE: can be simplify to one dim only
-        show_time("find virtual point");
+//        show_time("find virtual point");
         //find out the cutting index--with dim
         mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
 
         printf("using %.1f as mid_index\n",((float)mid_index+0.5));
-        show_time("find mid_index");
+//        show_time("find mid_index");
 
     }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
         mid_index = (int) ((1 + orgsorted_size) / 2);
@@ -236,25 +249,25 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         new_arr=(point*)malloc(sizeof(point));//one point array
         new_arr[0].th=0;
         for(i=0;i<DIM;i++) new_arr[0].values[i]=sorted_orgarr[1].values[i];//deleted one or previous one
-        show_time("Edge-- End of leaf");
+//        show_time("Edge-- End of leaf");
         return new_arr;
     }
     //for when only 1 element left
-    show_time("figure out mid_point & mid_split");
+//    show_time("figure out mid_point & mid_split");
     if(strcmp(up_down,"down")==0){
 //        printf("DOWN\n");
         new_arr_size=mid_index;
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[i];
         for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
-        show_time("down arr created!");
+//        show_time("down arr created!");
     }else if(strcmp(up_down,"up")==0){
 //        printf("UP\n");
         new_arr_size=orgsorted_size-mid_index;// for annoy should change here!
         new_arr=(point*)malloc(sizeof(point)*(1+new_arr_size));
         for(i=1;i<=new_arr_size;i++) new_arr[i]=sorted_orgarr[mid_index+i];
         for(i=0;i<DIM;i++) new_arr[0].values[i]=mid_point.values[i];
-        show_time("up arr created!");
+//        show_time("up arr created!");
     }else{
         printf("Debug: arr is empty & super_selection failed!!!\n");
         exit(0);
@@ -407,6 +420,49 @@ point* k_nearest_search(int k,node* tree,bool approximate,point target){
     printf("\n");
     return nearest_points;
 }
+point k_nearest_search_wo_recursion_stack_k1_approx_code(node* root,point target){//return nearest_point
+    node* current=root;
+    int dim_count=0;
+    printf("traverse route:");
+
+    print_this_point_woth(current->data);
+    while(current->left && current->right){
+
+        if(current->data.values[dim_count]>target.values[dim_count] && current->left){
+            current=current->left;
+        } else if (current->data.values[dim_count]<=target.values[dim_count] && current->right){
+            current=current->right;
+        }
+        else{
+            if(current->left) current=current->left;
+            else current=current->right;
+        }
+        dim_count++;
+        dim_count%=DIM;
+        printf("--->");
+        print_this_point_woth(current->data);
+        if(dim_count==0) printf("\n");
+    }
+    distance_calc(target,&current->data);
+    printf("\n");
+    return current->data;
+}
+point* k_nearest_search_wo_recusrion_stack(int k,node* tree,bool approximate,point target){
+    point* nearest_points=(point*)malloc(sizeof(point)*(k+1));
+    nearest_points[0].th=(float)k;
+    int i;
+    point onenearest;
+    if(k==1 && approximate) {
+        onenearest=k_nearest_search_wo_recursion_stack_k1_approx_code(tree,target);
+//        print_this_point(onenearest);
+        nearest_points[1]=onenearest;
+    }
+    else{
+        printf("Sorry not yet finish this part yet!\n");
+    }
+    show_time("found the nearest point(s)");
+    return nearest_points;
+}
 int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
     return parallel_num/scaling;
 }
@@ -447,20 +503,25 @@ point* read_data_from_txt(char* fname){
 
     return input;
 }
+
 int main(){
-    point* orgarr;
+    clock_t main_start;
+    run_time_debug[0]=main_start=clock();
+//    point* orgarr;
 //    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-//    orgarr=super_gen_rand_arr(DATASET_NUM,80);
+//    orgarr=super_gen_rand_arr(DATASET_NUM,39);
 //    print_nD_arr(orgarr);//print!
-//    point* arr2;
-/* test deepcopy--successful
+
+//    test deepcopy--successful
+/*
  * arr2=orgarr;//link
     arr2=deep_copy(orgarr);//deep copy
     arr2[0].values[0]=99999;
     print_nD_arr(orgarr);
  */
-/*
 //    test swap & quick sort
+/*
+
 //    point* testarr=super_gen_seq_arr(7,true);
     point* testarr=super_gen_rand_arr(21);
 //    testarr[0].values[0]=99999;testarr[0].values[1]=99999;
@@ -470,8 +531,9 @@ int main(){
     printf("End\n");
     print_nD_arr(testarr);
 */
+//test super_selection
 /*
-    //test super_selection
+
     printf("\n------------------------------------------------------------------\n");
     point* qsarr=deep_copy(orgarr);quicksort(qsarr,1,DATASET_NUM,0);print_nD_arr(qsarr);
     qsarr=deep_copy(orgarr);quicksort(qsarr,1,DATASET_NUM,1);print_nD_arr(qsarr);
@@ -486,8 +548,9 @@ int main(){
     print_nD_arr(super_selection(orgarr,"up",1,50));//print_nD_arr(selected);
     print_nD_arr(super_selection(orgarr,"up",2,50));//print_nD_arr(selected);
 */
+//test push
 /*
-    //test push
+
     printf("------------test push\n");
     point target={{51,32,61},0};
     point target1={{1,32,61},0};
@@ -499,20 +562,23 @@ int main(){
     push_front(org,target1,3);print_nD_arr(org);
     push_front(org,target1,3);print_nD_arr(org);
 */
-/*
 //  test buliding KD tree //bug fixed//succeed
+/*
+
     node *tree;
     tree=convert_2_KDtree(orgarr,50);//only code for 50, not yet solved other portions!
     print_bt(tree);
     print2DUtil(tree,0);
     */
+//test approximate searching k=1
 /*
-    //test approximate searching k=1
+
     point target={{31,14,73},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(1,tree,true,target);//true: approximate search
     print_nD_arr(found);
   */
+//test distance correctness--succeed
 /*
     //test distance correctness--succeed
     point p1={{3,7,2},0};
@@ -520,15 +586,17 @@ int main(){
     printf("ditance %.1f",distance_calc(p1,p2));
     exit(0);
 */
-/*
 //test searching k>1-- approximate and back tracking both work
+/*
+
     point target={{14,114,214},0};
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
 */
+//test push back
 /*
-    //test push back
+
     printf("------------test push\n");
     point target0={{51,32,61},0};
     point target1={{1,32,61},0};
@@ -540,18 +608,17 @@ int main(){
     push_back(org,target1,3,false);print_nD_arr(org);
     push_back(org,target1,3,false);print_nD_arr(org);
 */
+//test rand_ find_mid_index
 /*
-    //test rand_ find_mid_index
+
     point target={{4.5,104.5,204.5},0};
     int chosen_index;
     chosen_index=find_mid_index(orgarr,target,0);
     printf("point shoud be at %d index",chosen_index);
 */
-
+//build tree with specific portion
 /*
-    //build tree with specific portion
     node *tree;
-//    tree=convert_2_KDtree(orgarr,gpu_kd_portion(32,32/2));//for gpu
     run_time_debug[0]=clock();
     tree=convert_2_KDtree(orgarr,true);//for testing
     print_bt(tree);
@@ -561,17 +628,60 @@ int main(){
     printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
-
 */
 
-    //ouput generated point!
-//    write_data_to_txt("16points_rand.txt",orgarr);
-//
+//These block tested with 4096 points & read write files & approximate precise search with random split KDtree
 /*
+    //ouput generated point!
+//    write_data_to_txt("9points_rand_max39.txt",orgarr);
+
     //input generated data point
-    point* got_arr;
-    got_arr=read_data_from_txt("16points_rand.txt");
-    print_nD_arr(got_arr);
+    point* gotarr;
+    gotarr=read_data_from_txt("9points_rand_max39.txt");
+    show_time("read dmn file");
+    print_nD_arr(gotarr);
+    show_time("print org arr");
+    //test build ran_split KDtree
+//    exit(clock()-main_start);
+    node *tree;
+    tree=convert_2_KDtree(gotarr,true);
+    show_time("build tree time spent!");
+    print_bt(tree);
+    print2DUtil(tree,0);
+    show_time("print tree");
+
+    point target={{14,114,214},0};
+    printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
+    //test kNN search with precise with k>1
+    point* found=k_nearest_search(5,tree,false,target);//true: approximate search false: precise
+    show_time("kNN precise");
+    print_nD_arr(found);
+    show_time("print found");
+
+    printf("%.1f,%.1f,%.1f\n",target.values[0],target.values[1],target.values[2]);
+    found=k_nearest_search(5,tree,true,target);//true: approximate search//k=1 as always
+    show_time("kNN approximate");
+    print_nD_arr(found);
+    show_time("print found");
 */
-    return 0;
+//Traverse KD tree approximately with non-recursive & non-stack just one while loop k=1
+/*
+    //build tree from disk file
+
+    node* tree;
+    tree=convert_2_KDtree(read_data_from_txt("9points_rand_max39.txt"),true);
+    print2DUtil(tree,0);
+    show_time("tree print Fin");
+    point target;
+    point* nearest_points;
+    int i;
+    for(i=0;i<DIM;i++) target.values[i]=((i+1)*(rand()%43))%39;//test target point
+    show_time("create_dependency Fin");
+    nearest_points=k_nearest_search_wo_recusrion_stack(1,tree,true,target);
+    show_time("kNN search fin");
+
+    printf("target: ");print_this_point(target);
+    print_nD_arr(nearest_points);
+*/
+    return clock()-main_start;
 }

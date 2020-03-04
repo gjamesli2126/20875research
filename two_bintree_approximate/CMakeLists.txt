@@ -9,4 +9,4 @@ add_executable(two_bintree_approximate
 #        thro/main_print_debug.c
 #        thro/quicksort.c
 #        thro/quicksort.h
-        main.c)
+        main.c J_SIMD.h J_SIMD.c)

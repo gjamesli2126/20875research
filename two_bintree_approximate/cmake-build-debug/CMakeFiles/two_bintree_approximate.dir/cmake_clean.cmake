@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/two_bintree_approximate.dir/J_SIMD.c.obj"
   "CMakeFiles/two_bintree_approximate.dir/main.c.obj"
   "libtwo_bintree_approximate.dll.a"
   "two_bintree_approximate.exe"

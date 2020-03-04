@@ -11,12 +11,36 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46a838b9-df5c-4168-af2d-f98686b06135" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/C.includecache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/depend.internal" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" afterDir="false" />
+    <list default="true" id="46a838b9-df5c-4168-af2d-f98686b06135" name="Default Changelist" comment="Implemented SSE with regular vecotor">
+      <change afterPath="$PROJECT_DIR$/lect4_simd_sse.pptx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/J_SIMD.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/J_SIMD.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/C.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/try_SSE.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/try_SSE.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/try_SSE.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/try_SSE.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/try_SSE.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeCache.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
@@ -24,14 +48,23 @@
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/C.includecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/DependInfo.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects1.rsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/progress.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/two_bintree_approximate.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/two_bintree_approximate.cbp" afterDir="false" />
@@ -91,6 +124,10 @@
       <updated>1582149133704</updated>
       <workItem from="1582149135679" duration="91000" />
       <workItem from="1582149540685" duration="657000" />
+      <workItem from="1582442599731" duration="1368000" />
+      <workItem from="1582478348787" duration="1529000" />
+      <workItem from="1582484964507" duration="599000" />
+      <workItem from="1582517733863" duration="998000" />
     </task>
     <servers />
   </component>
@@ -99,23 +136,49 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Implemented SSE with regular vecotor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented SSE with regular vecotor" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1481" height="196" key="GridCell.Tab.0.bottom" timestamp="1582149226163">
+    <state x="252" y="1" key="CommitChangelistDialog2" timestamp="1582499221595">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1481" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582149226163" />
-    <state width="1481" height="196" key="GridCell.Tab.0.center" timestamp="1582149226163">
+    <state x="252" y="1" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1582499221595" />
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom" timestamp="1582499222691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1481" height="196" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582149226163" />
-    <state width="1481" height="196" key="GridCell.Tab.0.left" timestamp="1582149226163">
+    <state width="1481" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582444295963" />
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.0.center" timestamp="1582499222691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1481" height="196" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582149226163" />
-    <state width="1481" height="196" key="GridCell.Tab.0.right" timestamp="1582149226163">
+    <state width="1481" height="196" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582444295961" />
+    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.0.left" timestamp="1582499222691">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1481" height="196" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582149226163" />
+    <state width="1481" height="196" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582444295961" />
+    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.0.right" timestamp="1582499222691">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1481" height="196" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1582444295962" />
+    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1582499222691">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1582499222691">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1582499222691">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1582499222691">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1582499222691" />
   </component>
 </project>
