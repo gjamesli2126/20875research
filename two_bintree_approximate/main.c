@@ -320,7 +320,6 @@ node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen
     printf("------------------pop------------------------\n");
     return new_node;
 }
-
 node* convert_2_KDtree(point* arr, bool random_med){
     return convert_2_KDtree_code(arr,1,1,-1,random_med);
 }
@@ -410,7 +409,6 @@ void k_nearest_search_code(int k,node* root,bool approximate,point target,int ch
             }
         }
     }
-
 }
 point* k_nearest_search(int k,node* tree,bool approximate,point target){
     point* nearest_points=(point*)malloc(sizeof(point)*(k+1));
@@ -424,10 +422,8 @@ point k_nearest_search_wo_recursion_stack_k1_approx_code(node* root,point target
     node* current=root;
     int dim_count=0;
     printf("traverse route:");
-
     print_this_point_woth(current->data);
     while(current->left && current->right){
-
         if(current->data.values[dim_count]>target.values[dim_count] && current->left){
             current=current->left;
         } else if (current->data.values[dim_count]<=target.values[dim_count] && current->right){
@@ -500,9 +496,10 @@ point* read_data_from_txt(char* fname){
     }
     fclose(f);
     input[0].th=(float)num_data;
-
     return input;
 }
+
+
 
 int main(){
     clock_t main_start;
@@ -629,7 +626,6 @@ int main(){
     point* found=k_nearest_search(5,tree,false,target);//true: approximate search
     print_nD_arr(found);
 */
-
 //These block tested with 4096 points & read write files & approximate precise search with random split KDtree
 /*
     //ouput generated point!
@@ -683,5 +679,6 @@ int main(){
     printf("target: ");print_this_point(target);
     print_nD_arr(nearest_points);
 */
+//
     return clock()-main_start;
 }
