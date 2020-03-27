@@ -1,0 +1,92 @@
+#*************************************************************************************************
+# Copyright (C) 2017, Nikhil Hegde, Jianqiao Liu, Kirshanthan Sundararajah, Milind Kulkarni, and 
+# Purdue University. All Rights Reserved. See Copyright.txt
+#************************************************************************************************/
+HARNESS_PATH = ../../../common/harness
+HARNESS_OBJ = harness.o 
+TRACK_TRAVERSALS=1
+PAPI_PATH = /home/min/a/hegden/Research/PAPI/
+
+BLOCK_PATH = ../../../common/block
+BLOCK_SRC = $(BLOCK_PATH)/blocks.cpp
+BLOCK_DEPS = $(BLOCK_SRC) $(BLOCK_PATH)/blocks.h
+
+COMMON_PATH = ../../../common
+COMMON_OBJ = $(COMMON_PATH)/common.o
+
+INTERSTATE_SRC = $(COMMON_PATH)/interstate.cpp
+INTERSTATE_DEPS = $(INTERSTATE_SRC) $(COMMON_PATH)/interstate.h
+
+CC = g++
+CFLAGS =-I$(HARNESS_PATH) -I$(BLOCK_PATH) -I$(COMMON_PATH)
+LIBS = -lpthread -lm 
+
+ifeq ($(CC),icc)
+	CFLAGS += -no-multibyte-chars -DICC
+endif
+
+ifeq ($(DEBUG),1)
+  CFLAGS += -DTRACK_TRAVERSALS
+  ifeq ($(CC),icc)		
+    CFLAGS += -g -fno-inline-functions  
+  else
+  	CFLAGS += -g3 
+  endif
+else
+  CFLAGS += -O3 -DNDEBUG
+  ifeq ($(CC),icc)
+    CFLAGS += -ip -unroll  
+  else
+  	CFLAGS += -funroll-loops 
+  endif
+endif
+
+ifeq ($(PROFILE),1)
+	CFLAGS += -DBLOCK_PROFILE
+endif
+ifeq ($(PROFILE),2)
+	CFLAGS += -DTREE_PROFILE
+endif
+ifeq ($(PROFILE),3)
+	CFLAGS += -DPROFILE
+endif
+ifeq ($(PROFILE),4)
+	CFLAGS += -DPARALLELISM_PROFILE
+endif
+
+ifeq ($(TRACK),1)
+	CFLAGS += -DTRACK_TRAVERSALS
+endif
+
+ifeq ($(NO_ELISION),1)
+	CFLAGS += -DNO_ELISION
+endif
+
+ifeq ($(BLOCK_TOP),1)
+	CFLAGS += -DBLOCK_TOP
+endif
+
+ifeq ($(TRACK_TRAVERSALS),1)
+  CFLAGS += -DTRACK_TRAVERSALS
+endif
+
+ifeq ($(PAPI_FINE),1)
+	CFLAGS += -DPAPI_FINE
+	PAPI = 1
+endif
+
+ifeq ($(PAPI),1)
+	CFLAGS += -DPAPI -I$(PAPI_PATH)/include
+	HARNESS_OBJ += papiprofiler.o
+	LIBS += -lpapi -L$(PAPI_PATH)/lib
+endif
+
+ifeq ($(METRICS),1)
+	CFLAGS += -DMETRICS
+endif
+
+harness.o: $(HARNESS_PATH)/harness.cpp $(HARNESS_PATH)/harness.h
+	$(CC) $(CFLAGS) -c $(HARNESS_PATH)/harness.cpp
+	
+papiprofiler.o: $(HARNESS_PATH)/papiprofiler.cpp $(HARNESS_PATH)/papiprofiler.h
+	$(CC) $(CFLAGS) -c $(HARNESS_PATH)/papiprofiler.cpp

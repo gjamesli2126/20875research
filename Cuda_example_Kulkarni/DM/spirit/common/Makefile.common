@@ -1,0 +1,51 @@
+#*************************************************************************************************
+# * Copyright (C) 2017, Nikhil Hegde, Jianqiao Liu, Milind Kulkarni, and
+# * Purdue University. All Rights Reserved. See Copyright.txt
+#*************************************************************************************************/
+CPP=mpic++
+BASE_DIR = ..
+
+BOOST_HOME=/home/wabash/a/hegden/boost_1_63_0
+INCLUDES = -I$(BASE_DIR)/common
+PROFILING_FLAGS = -DSTATISTICS #-DTRAVERSAL_PROFILE#-DSTATISTICS2 #-DPERFCOUNTERS
+
+PAPI_HOME=/home/min/a/hegden/Research/PAPI
+MPI_PROFILING_HOME=/home/min/a/hegden/Research/MPIProfiling
+#when enabling IPM profiling, set environment variables: 1)LD_PRELOAD=MPI_PROFILING_HOME/ipm/lib/libipm.so 2)IPM_KEYFILE=MPI_PROFILING_HOME/ipm/ipm_key 3)PATH=$PATH$:MPI_PROFILING_HOME/ploticus242/bin
+# 1 is optional if static the .so file is linked statically.
+ifeq ($(DEBUG),1)
+CFLAGS=-g
+CFLAGS+=$(PROFILING_FLAGS)
+INCLUDES+=-I/home/min/a/hegden/ECE573/Installed/boost_1_54_0/ -I/var/scratch/openmpi/include/ -I$(PAPI_HOME)/include/ 
+INCLUDELIB=/home/min/a/hegden/ECE573/Installed/boost_1_54_0/stage/lib
+else
+#CFLAGS=-g $(PROFILING_FLAGS)
+CFLAGS=-DNDEBUG $(PROFILING_FLAGS)
+INCLUDES+=-I$(BOOST_HOME) -I$(PAPI_HOME)/include/ 
+INCLUDELIB=$(BOOST_HOME)/stage/lib
+endif
+
+ifeq ($(IPM),1)
+CFLAGS +=$(MPI_PROFILING_HOME)/ipm/lib/libipm.so
+endif
+
+ifeq ($(PAPI),1)
+CFLAGS += -DPAPI
+CFLAGS +=$(PAPI_HOME)/lib/libpapi.so
+endif
+ifeq ($(TRAVERSAL_PROFILE),1)
+CFLAGS += -DTRAVERSAL_PROFILE
+endif
+ifeq ($(AGGR),1)
+CFLAGS += -DMESSAGE_AGGREGATION
+endif
+
+ifneq ($(DIMENSION),)
+CFLAGS += -DDIMENSION=$(DIMENSION)
+endif
+
+BIN_DEPS = $(BASE_DIR)/common/SPIRIT.cpp $(BASE_DIR)/common/Optimizations.cpp $(BASE_DIR)/common/WLManager.cpp
+
+INCLUDES += $(INCLUDELIB)/libboost_mpi.so $(INCLUDELIB)/libboost_graph_parallel.so $(INCLUDELIB)/libboost_system.so
+	
+

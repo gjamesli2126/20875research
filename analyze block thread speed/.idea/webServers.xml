@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c65990aa-94b1-417e-a734-44214e6a7c57" name="dp1" url="http://deepspeed1.ecn.purdue.edu">
+        <fileTransfer host="deepspeed1.ecn.purdue.edu" port="22" rootFolder="/home/vipaacc" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

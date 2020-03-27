@@ -1,0 +1,3 @@
+1) Obtain wikipedia data and trim it (download the raw data, and trim it using the .pl script at the end of webpage http://mattmahoney.net/dc/textdata)
+2) Use the trimmed data with word2vec (https://code.google.com/p/word2vec/) to get the input needed for running K-Means clustering algorithm
+

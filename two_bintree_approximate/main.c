@@ -11,6 +11,7 @@
 #define max_clock_stamp 10240
 #define max_clock_store 8
 #define DIM 3
+#define TREE_space_extra_buff 32
 clock_t run_time_debug[max_clock_store];
 int clock_index=0;
 typedef struct point{
@@ -276,8 +277,8 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     new_arr[0].th=(float)new_arr_size;
     return new_arr;
 }
-node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,bool random_med){
-    node* new_node=(node*)malloc(sizeof(node));
+node* convert_2_KDtree_code(point* arr,node** new_nodes,int node_index,float th,int brute_force_range,int chosen_dim,bool random_med){
+//    node* new_node=(node*)malloc(sizeof(node));
     point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     int i;
@@ -290,38 +291,44 @@ node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen
     arr_left=(super_selection(arr,"down",chosen_dim,random_med));//too slow!!!!!!!!!!!fix here~~
     arr_right=(super_selection(arr,"up",chosen_dim,random_med));
 //    printf("updown End\n");
-    new_node->data.th=th;
+    new_nodes[node_index]->data.th=th;
     if((int)roundf(arr_left[0].th)>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+        for(i=0;i<DIM;i++) new_nodes[node_index]->data.values[i]= arr_left[0].values[i];
         printf("L\n");
         print_nD_arr(arr_left);
-        print_node(new_node);
-        new_node->left=convert_2_KDtree_code(arr_left,th,brute_force_range,chosen_dim,random_med);
+        print_node(new_nodes[node_index]);
+        new_nodes[node_index]->left=convert_2_KDtree_code(arr_left,new_nodes,node_index+1,th,brute_force_range,chosen_dim,random_med);
     }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+        for(i=0;i<DIM;i++) new_nodes[node_index]->data.values[i]= arr_left[0].values[i];
         printf("L----NULL\n");
         print_nD_arr(arr_left);
-        print_node(new_node);
-        new_node->left=NULL;
+        print_node(new_nodes[node_index]);
+        new_nodes[node_index]->left=NULL;
     }
     if((int)roundf(arr_right[0].th)>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+        for(i=0;i<DIM;i++) new_nodes[node_index]->data.values[i]= arr_right[0].values[i];
         printf("R\n");
         print_nD_arr(arr_right);
-        print_node(new_node);
-        new_node->right=convert_2_KDtree_code(arr_right,th,brute_force_range,chosen_dim,random_med);
+        print_node(new_nodes[node_index]);
+        new_nodes[node_index]->right=convert_2_KDtree_code(arr_right,new_nodes,node_index+1,th,brute_force_range,chosen_dim,random_med);
     }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+        for(i=0;i<DIM;i++) new_nodes[node_index]->data.values[i]= arr_right[0].values[i];
         printf("R----NULL\n");
         print_nD_arr(arr_right);
-        print_node(new_node);
-        new_node->right=NULL;
+        print_node(new_nodes[node_index]);
+        new_nodes[node_index]->right=NULL;
     }
     printf("------------------pop------------------------\n");
-    return new_node;
+    return new_nodes[node_index];
+}
+int calc_total_node_number(point* arr){
+//    print_nD_arr(arr);
+    return 2*(int)arr[0].th-1+TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
 }
 node* convert_2_KDtree(point* arr, bool random_med){
-    return convert_2_KDtree_code(arr,1,1,-1,random_med);
+    node** new_nodes;
+    new_nodes=malloc(sizeof(node)*calc_total_node_number(arr));
+    return convert_2_KDtree_code(arr,new_nodes,0,1,1,-1,random_med);
 }
 void push_front(point* org_arr,point desire_push,int k,bool k_full_lock){//k_full_lock: true to avoid element be popped if queue overflow!
 //    printf("----------------------------------------------------\n");
@@ -443,6 +450,39 @@ point k_nearest_search_wo_recursion_stack_k1_approx_code(node* root,point target
     printf("\n");
     return current->data;
 }
+point* k_nearest_search_k1_GPU(node** root,point target,int tree_num){//return nearest_point
+    int i;
+    int dim_count;
+    node* current;
+    point* point_list;
+    point_list=(point*)malloc(sizeof(point)*tree_num);
+    for (i=0;i<tree_num;i++){
+        current=root[i];
+        dim_count=0;
+        printf("traverse route:");
+        print_this_point_woth(current->data);
+        while(current->left && current->right){
+            if(current->data.values[dim_count]>target.values[dim_count] && current->left){
+                current=current->left;
+            } else if (current->data.values[dim_count]<=target.values[dim_count] && current->right){
+                current=current->right;
+            }
+            else{
+                if(current->left) current=current->left;
+                else current=current->right;
+            }
+            dim_count++;
+            dim_count%=DIM;
+            printf("--->");
+            print_this_point_woth(current->data);
+            if(dim_count==0) printf("\n");
+        }
+        distance_calc(target,&current->data);
+        printf("\n");
+        point_list[i]=current->data;
+    }
+    return point_list;
+}
 point* k_nearest_search_wo_recusrion_stack(int k,node* tree,bool approximate,point target){
     point* nearest_points=(point*)malloc(sizeof(point)*(k+1));
     nearest_points[0].th=(float)k;
@@ -506,7 +546,7 @@ int main(){
     run_time_debug[0]=main_start=clock();
 //    point* orgarr;
 //    orgarr=super_gen_seq_arr(DATASET_NUM,true);
-//    orgarr=super_gen_rand_arr(DATASET_NUM,39);
+//    orgarr=super_gen_rand_arr(DATASET_NUM,48);
 //    print_nD_arr(orgarr);//print!
 
 //    test deepcopy--successful
@@ -679,6 +719,32 @@ int main(){
     printf("target: ");print_this_point(target);
     print_nD_arr(nearest_points);
 */
-//
+//Generate 32 tree with same array
+
+//    point* orgarr=super_gen_rand_arr(8,144);
+//    write_data_to_txt("8points_rand_max144.txt",orgarr);
+    const int tree_num=1;
+    node* tree[tree_num];
+    int i;
+    point* orgarr=read_data_from_txt("8points_rand_max144.txt");
+    for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,true);
+    exit(332);
+    for(i=0;i<tree_num;i++) {
+        print2DUtil(tree[i],0);
+        printf("\n\n------------------------------------------------------\n\n\n\n\n");
+    }
+    point target;
+    point* found;
+    target.values[0] = 32;
+    target.values[1] = 11;
+    target.values[2] = 65;
+    found=k_nearest_search_k1_GPU(tree,target,tree_num);
+    //show four points
+    printf("\n\n==============================\n");
+    for(i=0;i<tree_num;i++){
+        print_this_point_woth(found[i]);
+        printf("\n");
+    }
+
     return clock()-main_start;
 }

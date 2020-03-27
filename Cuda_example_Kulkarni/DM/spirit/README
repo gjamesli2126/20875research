@@ -1,0 +1,21 @@
+This folder contains implementations of benchmarks using the spirit framework.
+The applications implemented are:
+1)BarnesHut (BH) with octree
+2)nearestNeighbor (NN) with kd- and vp-trees (VP)
+3)Two-point correlation (PC) with kd-tree
+
+To build:
+Goto any application directory (bhoctree = BH, pckdtree = PC, nnvptree = VP, nnkdtree = NN) and compile using make.
+For PC, NN, and VP make sure the value of DIMENSIONS in common/Point.h matches the metric space dimension of the input points.
+For BH this value must be set to 3. 
+Currently, Heatray code uses older version of SPIRIT APIs. Hence, SPIRIT's code is duplicated in Heatray folder.
+
+Test.cpp = File containing main function. Application test code.
+xVisitor.cpp/.hpp = Application specific visitor object and its properties.
+xTreeTypes.hpp = Application specific data types.
+common/Messages.hpp = All the messaging data structures used in construction and traversal. xTreeTypes.hpp needs to be included here.
+common/SPIRIT.hpp = SPIRIT APIs, Tree vertex definitions etc. 
+common/SPIRIT.cpp = SPIRIT APIs for tree construction, traversal, point distribution, input data reading etc.
+common/WLManager.cpp/.hpp = Point blocking implementation. Used by the SPIRIT's tree traversal API.
+common/Optimizations.cpp/.hpp = Optimizations (BLOCK_SIZE, SUBTREE_HEIGHT, BLOCK_INTAKE_LIMIT (controlling amount of pipeline parallelism), PIPELINE_BUFFER_SIZE (message aggregation), BATCH_SIZE(processing out-of-memory data in batches)) 
+
