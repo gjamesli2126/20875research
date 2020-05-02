@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdbool.h>
 
+#define TREE_space_extra_buff 0
 #define COUNT 20
 
 #define DATASET_NUM 9
@@ -286,55 +287,75 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     new_arr[0].th=(float)new_arr_size;
     return new_arr;
 }
-node* convert_2_KDtree_code(point* arr,float th,int brute_force_range,int chosen_dim,bool random_med){
-    //node* new_node=(node*)malloc(sizeof(node));//only cpu
-    node* new_node;
-    cudaMallocManaged(&new_node, sizeof(node));//FIX HERE; instead of cudamalloc in one recursive, try to malloc beforev this subroutine runs
-
+node* convert_2_KDtree_code(point* arr, node* new_nodes, int* node_index, float th, int brute_force_range, int chosen_dim, bool random_med) {
+    int index_stamp = *node_index;
+    //    node* new_node=(node*)malloc(sizeof(node));
     point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     int i;
-//    printf("\nEach recusrsion array\n");
-//    print_nD_arr(arr);
+    //    printf("\nEach recusrsion array\n");
+    //    print_nD_arr(arr);
     chosen_dim++;
-    chosen_dim%=DIM;
-    printf("Current Dim %d\n",chosen_dim);
-//    printf("updown st\n");
-    arr_left=(super_selection(arr,"down",chosen_dim,random_med));//too slow!!!!!!!!!!!fixed here~~
-    arr_right=(super_selection(arr,"up",chosen_dim,random_med));
-//    printf("updown End\n");
-    new_node->data.th=th;
-    if((int)roundf(arr_left[0].th)>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+    chosen_dim %= DIM;
+    printf("Current Dim %d____node_index %d\n", chosen_dim, *node_index);
+    //    printf("updown st\n");
+    arr_left = (super_selection(arr, "down", chosen_dim, random_med));//too slow!!!!!!!!!!!fix here----fixed!
+    arr_right = (super_selection(arr, "up", chosen_dim, random_med));
+    //    printf("updown End\n");
+    new_nodes[index_stamp].data.th = th;
+    if ((int)roundf(arr_left[0].th) >= brute_force_range) {
+        for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_left[0].values[i];
         printf("L\n");
         print_nD_arr(arr_left);
-        print_node(new_node);
-        new_node->left=convert_2_KDtree_code(arr_left,th,brute_force_range,chosen_dim,random_med);
-    }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_left[0].values[i];
+        print_node(&new_nodes[index_stamp]);
+        (*node_index)++;
+        new_nodes[index_stamp].left = convert_2_KDtree_code(arr_left, new_nodes, &(*node_index), th, brute_force_range, chosen_dim, random_med);
+        free(arr_left);
+    }
+    else {
+        for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_left[0].values[i];
         printf("L----NULL\n");
         print_nD_arr(arr_left);
-        print_node(new_node);
-        new_node->left=NULL;
+        print_node(&new_nodes[index_stamp]);
+        new_nodes[index_stamp].left = NULL;
+        free(arr_left);
     }
-    if((int)roundf(arr_right[0].th)>=brute_force_range){
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+    if ((int)roundf(arr_right[0].th) >= brute_force_range) {
+        for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_right[0].values[i];
         printf("R\n");
         print_nD_arr(arr_right);
-        print_node(new_node);
-        new_node->right=convert_2_KDtree_code(arr_right,th,brute_force_range,chosen_dim,random_med);
-    }else{
-        for(i=0;i<DIM;i++) new_node->data.values[i]= arr_right[0].values[i];
+        print_node(&new_nodes[index_stamp]);
+        (*node_index)++;
+        new_nodes[index_stamp].right = convert_2_KDtree_code(arr_right, new_nodes, &(*node_index), th, brute_force_range, chosen_dim, random_med);
+        free(arr_right);
+    }
+    else {
+        for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_right[0].values[i];
         printf("R----NULL\n");
         print_nD_arr(arr_right);
-        print_node(new_node);
-        new_node->right=NULL;
+        print_node(&new_nodes[index_stamp]);
+        new_nodes[index_stamp].right = NULL;
+        free(arr_right);
     }
-    printf("------------------pop------------------------\n");
-    return new_node;
+    printf("------------------pop------------------------");
+    printf("index_stamp: %d\n", index_stamp);
+    //if (index_stamp == 6) {};//debug only
+    return &new_nodes[index_stamp];
 }
-node* convert_2_KDtree(point* arr, bool random_med){
-    return convert_2_KDtree_code(arr,1,1,-1,random_med);
+int calc_total_node_number(point* arr) {
+    //    print_nD_arr(arr);
+    return 2 * (int)arr[0].th - 1 + TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+}
+node* convert_2_KDtree(point* arr, bool random_med) {
+    node* new_nodes;
+    int node_num, node_index;
+    node_num = calc_total_node_number(arr);
+    printf("the node_number is: %d\n", node_num);
+    //new_nodes = (node*)malloc(sizeof(node) * node_num);
+    cudaMallocManaged(&new_nodes, sizeof(node) * node_num);
+    node_index = 0;
+
+    return convert_2_KDtree_code(arr, new_nodes, &node_index, 1, 1, -1, random_med);
 }
 void push_front(point* org_arr,point desire_push,int k,bool k_full_lock){//k_full_lock: true to avoid element be popped if queue overflow!
 //    printf("----------------------------------------------------\n");
@@ -473,29 +494,31 @@ void test_gpu_cancompile() {
 }
 __global__ 
 void k_nearest_search_k1_GPU(node** root,point target,int tree_num,point* point_list){//return nearest_point
-    int i;
+    int i;// , route_store;
     int dim_count;
     //__shared__  node* current;
     /*cudaMalloc((void**)&current, sizeof(node) * tree_num);*/
     //point_list=(point*)malloc(sizeof(point)*tree_num);
 
     i = blockIdx.x * blockDim.x + threadIdx.x;
-    printf("My current thread(i) is _%d________\n", i);
+    printf("My current thread(%d)___\n", i);
     //for (i=0;i<tree_num;i++){
     if(i<tree_num){
-        printf("GPU process_____1\n");
+        //route_store = 0;
+        //printf("GPU process_____1\n");
         //current = (node*)0; // NOT current's fault!
         //current=root[i];       
         dim_count=0;
         //printf("traverse route:\n");
-        print_this_point_woth_gpu(root[i]->data);
-    
-        printf("GPU process_____2\n");
-        int k = 3;
+        //print_this_point_woth_gpu(root[i]->data);//debugging use
+        //found_route[i][route_store] = root[i]->data;
+        //route_store++;
+        //printf("GPU process_____2\n");
+        //int k = 3;
         
         
         while(root[i]->left && root[i]->right){
-            printf("GPU process_____%d \t traversing!\n", k); k++;
+            //printf("GPU process_____%d \t traversing!\n", k); k++;
             //printf("Wellcom to GPU success!_____%d\n",k++);
             if(root[i]->data.values[dim_count]>target.values[dim_count] && root[i]->left){
                 root[i] = root[i]->left;
@@ -508,13 +531,15 @@ void k_nearest_search_k1_GPU(node** root,point target,int tree_num,point* point_
             }
             dim_count++;
             dim_count%=DIM;
-            printf("--->");
-            print_this_point_woth_gpu(root[i]->data);
-            if(dim_count==0) printf("\n");
+            //printf("--->");
+            //print_this_point_woth_gpu(root[i]->data);
+            //found_route[i][route_store++] = root[i]->data;
+            //if(dim_count==0) printf("\n");
         }
         distance_calc_gpu(target,&root[i]->data);
-        printf("\n");
+        //printf("\n");
         point_list[i]= root[i]->data;
+        //route_store[i][0] = route_store;
     }
 }
 point* k_nearest_search_wo_recusrion_stack(int k,node* tree,bool approximate,point target){
@@ -572,10 +597,12 @@ point* read_data_from_txt(char* fname){
     input[0].th=(float)num_data;
     return input;
 }
-
-
+int calc_node_rounte_space_avg(int data_num) {
+    return ((log(data_num) / log(2) + 1) + data_num) / 2;
+}
 
 int main(){
+    printf("process starts!\n");
     clock_t main_start;
     run_time_debug[0]=main_start=clock();
 //    point* orgarr;
@@ -757,18 +784,22 @@ int main(){
 
 //    point* orgarr=super_gen_rand_arr(8,144);
 //    write_data_to_txt("8points_rand_max144.txt",orgarr);
-    const int tree_num = 1;
-    node* tree[tree_num];
-    int i,j,k;
+    const int tree_num = 100;
+    node** tree;
+    cudaMallocManaged(&tree,sizeof(node)*tree_num);
+    //node* tree[tree_num];
+    int i;
     
     point* orgarr=read_data_from_txt("8points_rand_max144.txt");
     for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,true);
+    free(orgarr);
     for(i=0;i<tree_num;i++) {
         print2DUtil(tree[i],0);
         printf("\n\n------------------------------------------------------\n\n\n\n\n");
     }
     point target;
     point* found;
+
     //node* tree_gpu[tree_num];
     //cudaMalloc(&tree_gpu, sizeof(node)*tree_num);
     //cudaMemcpy(tree_gpu, tree, sizeof(node) * tree_num, cudaMemcpyHostToDevice);
@@ -800,17 +831,23 @@ int main(){
     target.values[0] = 32;
     target.values[1] = 11;
     target.values[2] = 65;
-    cudaMallocManaged(&found, sizeof(point) * tree_num);
+    printf("target point: ");
+    print_this_point_woth(target);
+    printf("\n");
+
+
+    cudaMallocManaged(&found, sizeof(int) * (tree_num));
+
     //found[0].th = 9;//testing->successful!
     //k_nearest_search_k1_GPU <<<1,1>>> (tree_gpu,target,tree_num,found);
-    k_nearest_search_k1_GPU << <1, 1 >> > (tree, target, tree_num, found);
+    k_nearest_search_k1_GPU << <1, tree_num >> > (tree, target, tree_num, found);
     cudaDeviceSynchronize();
     //show four points
-    printf("\n\n==============================\n");
-    //for(i=0;i<7;i++){
-    //    print_this_point_woth(found[i]);
-    //    printf("\n");
-    //}
+    printf("\n\n==============================\nfound:\n");
+    for(i=0;i<tree_num;i++){
+        print_this_point(found[i]);
+        printf("\n");
+    }
     cudaFree(found);
     return clock()-main_start;
 }

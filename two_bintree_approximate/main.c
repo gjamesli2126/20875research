@@ -300,12 +300,14 @@ node* convert_2_KDtree_code(point* arr,node* new_nodes,int* node_index,float th,
         print_node(&new_nodes[index_stamp]);
         (*node_index)++;
         new_nodes[index_stamp].left=convert_2_KDtree_code(arr_left,new_nodes,&(*node_index),th,brute_force_range,chosen_dim,random_med);
+        free(arr_left);
     }else{
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_left[0].values[i];
         printf("L----NULL\n");
         print_nD_arr(arr_left);
         print_node(&new_nodes[index_stamp]);
         new_nodes[index_stamp].left=NULL;
+        free(arr_left);
     }
     if((int)roundf(arr_right[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_right[0].values[i];
@@ -314,12 +316,14 @@ node* convert_2_KDtree_code(point* arr,node* new_nodes,int* node_index,float th,
         print_node(&new_nodes[index_stamp]);
         (*node_index)++;
         new_nodes[index_stamp].right=convert_2_KDtree_code(arr_right,new_nodes,&(*node_index),th,brute_force_range,chosen_dim,random_med);
+        free(arr_right);
     }else{
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_right[0].values[i];
         printf("R----NULL\n");
         print_nD_arr(arr_right);
         print_node(&new_nodes[index_stamp]);
         new_nodes[index_stamp].right=NULL;
+        free(arr_right);
     }
     printf("------------------pop------------------------\n");
     printf("index_stamp: %d\n",index_stamp);
@@ -554,8 +558,8 @@ point* read_data_from_txt(char* fname){
 int main(){
     clock_t main_start;
     run_time_debug[0]=main_start=clock();
-    point* orgarr;
-    orgarr=super_gen_seq_arr(DATASET_NUM,false);
+//    point* orgarr;
+//    orgarr=super_gen_seq_arr(DATASET_NUM,false);
 //    orgarr=super_gen_rand_arr(DATASET_NUM,48);
 //    print_nD_arr(orgarr);//print!
 
@@ -731,13 +735,14 @@ int main(){
 */
 //Generate 32 tree with same array
 
-//    point* orgarr=super_gen_rand_arr(8,144);
-//    write_data_to_txt("8points_rand_max144.txt",orgarr);
-    const int tree_num=1;
+    point* orgarr=super_gen_rand_arr(8,144);
+    write_data_to_txt("8points_rand_max144.txt",orgarr);
+    const int tree_num=12;
     node* tree[tree_num];
     int i;
 //    point* orgarr=read_data_from_txt("8points_rand_max144.txt");
-    for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,false);
+    for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,true);
+    free(orgarr);
 //    exit(332);
     for(i=0;i<tree_num;i++) {
         print2DUtil(tree[i],0);
@@ -745,9 +750,9 @@ int main(){
     }
     point target;
     point* found;
-    target.values[0] = 6.4;
-    target.values[1] = 106.4;
-    target.values[2] = 206.2;
+    target.values[0] = 134;
+    target.values[1] = 127;
+    target.values[2] = 59;
     //print--st
     printf("The target is: (");
     for(i=0;i<DIM;i++) printf("%f, ",target.values[i]);printf("\b\b)\n");
@@ -758,6 +763,7 @@ int main(){
     for(i=0;i<tree_num;i++){
         print_this_point_woth(found[i]);
         printf("\n");
+
     }
 
     return clock()-main_start;
