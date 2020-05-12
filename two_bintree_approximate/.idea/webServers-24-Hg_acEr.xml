@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="76a3908d-4279-4da1-a132-09f40ce614a2" name="dp1" url="http://deepspeed1.ecn.purdue.edu">
+        <fileTransfer host="deepspeed1.ecn.purdue.edu" port="22" rootFolder="/home/vipaacc" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="3d97c068-1b6b-4389-bf49-297499508188" name="shay">
+        <fileTransfer host="shay.ecn.purdue.edu" port="22" rootFolder="/home/shay/a/li3261" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="33b18874-3eac-4e89-a94e-2c585d71d720" name="purdue norm">
+        <fileTransfer host="ecegrid.ecn.purdue.edu" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

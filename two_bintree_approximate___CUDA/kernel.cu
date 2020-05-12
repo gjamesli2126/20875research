@@ -6,33 +6,39 @@
 #include <device_launch_parameters.h>
 #include <math.h>
 #include <stdbool.h>
-#include <stdbool.h>
+#include <setjmp.h>
 
-#define TREE_space_extra_buff 0
+
+#define TREE_space_extra_buff 4
+#define point_space_extra_buff 8
 #define COUNT 20
 
 #define DATASET_NUM 9
 #define MAX_INT_DEF 0xfffffff
-#define max_clock_stamp 10240
-#define max_clock_store 8
+#define max_clock_stamp 0xfffffff
+#define max_clock_store 16
 #define DIM 3
+jmp_buf jmpbuffer;
 clock_t run_time_debug[max_clock_store];
 int clock_index=0;
+bool write_Data_head = false;
+unsigned long long  store_avi_node_num=0;
 typedef struct point{
     float values[DIM];
     float th;//store distance or quantity
 }point;
-
 typedef struct node{
     point data;
     struct node* left=NULL;
     struct node* right=NULL;
 }node;
-int mypow(int x,int y){
-    int result=1;
-    for (int i = 0; i <y ; ++i) {
-        result*=x;
+unsigned long long mypow(int x, int y) {
+    unsigned long long result = 1;
+    int i;
+    for (i = 0; i < y; i++) {
+        result *= x;
     }
+    //    printf("%llu",result);
     return result;
 }
 void print_nD_arr(point* arr){
@@ -110,7 +116,6 @@ point* deep_copy(point *arr){
     memcpy(newarr,arr, sizeof(point)*(size+1));
     return newarr;
 }
-
 int print_test_qsort(point* arr){
     int val=0;
     for (int i = 1; i <=(int)roundf(arr[0].th) ; ++i) {
@@ -213,7 +218,7 @@ void show_time(char* str){
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool random_pick_med){
 //    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
     // for GPU. Generate 32 kinds of portion
-    printf("--------new super selection----------\n");
+    //printf("--------new super selection----------\n");//orgprint
 
     int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
@@ -240,7 +245,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
                 //org rindex2+- rand()
         }while(rindex1==rindex2);//randomed value cannot be the same//but condition variable is slow So this is just a backup plan
 //        show_time("find rindex2");
-        printf("index=%d,%d\n",rindex1,rindex2);
+        //printf("index=%d,%d\n",rindex1,rindex2);//orgprint
         //calc where should the index should be inserted in the array
         val1=sorted_orgarr[rindex1];
         val2=sorted_orgarr[rindex2];
@@ -250,7 +255,7 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         //find out the cutting index--with dim
         mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
 
-        printf("using %.1f as mid_index\n",((float)mid_index+0.5));
+        //printf("using %.1f as mid_index\n",((float)mid_index+0.5));//orgprint
 //        show_time("find mid_index");
 
     }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
@@ -287,8 +292,20 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
     new_arr[0].th=(float)new_arr_size;
     return new_arr;
 }
-node* convert_2_KDtree_code(point* arr, node* new_nodes, int* node_index, float th, int brute_force_range, int chosen_dim, bool random_med) {
-    int index_stamp = *node_index;
+node* convert_2_KDtree_code(point* arr, node* new_nodes, unsigned long long* node_index, float th, int brute_force_range, int chosen_dim, bool random_med) {
+    if (new_nodes == NULL) {
+        //handle error and rerun
+        printf("Err handled!\n");
+        longjmp(jmpbuffer, 1);
+    }
+    unsigned long long index_stamp = *node_index;
+    //if (index_stamp==0) {
+    //    printf("index_stamp%d \t\tstore_avi_node_num%d\n", index_stamp, store_avi_node_num);
+    //}
+    if (index_stamp > store_avi_node_num || index_stamp<0) {
+        printf("index_stamp%d > store_avi_node_num%d\n", index_stamp, store_avi_node_num);
+        longjmp(jmpbuffer, 2);
+    }
     //    node* new_node=(node*)malloc(sizeof(node));
     point* arr_left;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
     point* arr_right;//=(point*) malloc(sizeof(point)*(arr[0].th+1));
@@ -297,60 +314,73 @@ node* convert_2_KDtree_code(point* arr, node* new_nodes, int* node_index, float 
     //    print_nD_arr(arr);
     chosen_dim++;
     chosen_dim %= DIM;
-    printf("Current Dim %d____node_index %d\n", chosen_dim, *node_index);
+    //printf("Current Dim %d____node_index %d\n", chosen_dim, *node_index);//orgprint
     //    printf("updown st\n");
     arr_left = (super_selection(arr, "down", chosen_dim, random_med));//too slow!!!!!!!!!!!fix here----fixed!
     arr_right = (super_selection(arr, "up", chosen_dim, random_med));
     //    printf("updown End\n");
+    //handle error
     new_nodes[index_stamp].data.th = th;
     if ((int)roundf(arr_left[0].th) >= brute_force_range) {
         for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_left[0].values[i];
-        printf("L\n");
-        print_nD_arr(arr_left);
-        print_node(&new_nodes[index_stamp]);
+        //printf("L\n");//orgprint
+        //print_nD_arr(arr_left);//orgprint
+        //print_node(&new_nodes[index_stamp]);//orgprint
         (*node_index)++;
         new_nodes[index_stamp].left = convert_2_KDtree_code(arr_left, new_nodes, &(*node_index), th, brute_force_range, chosen_dim, random_med);
         free(arr_left);
     }
     else {
         for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_left[0].values[i];
-        printf("L----NULL\n");
-        print_nD_arr(arr_left);
-        print_node(&new_nodes[index_stamp]);
+        //printf("L----NULL\n");////orgprint
+        //print_nD_arr(arr_left);////orgprint
+        //print_node(&new_nodes[index_stamp]);//orgprint
         new_nodes[index_stamp].left = NULL;
         free(arr_left);
     }
     if ((int)roundf(arr_right[0].th) >= brute_force_range) {
         for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_right[0].values[i];
-        printf("R\n");
-        print_nD_arr(arr_right);
-        print_node(&new_nodes[index_stamp]);
+        //printf("R\n");////orgprint
+        //print_nD_arr(arr_right);//orgprint
+        //print_node(&new_nodes[index_stamp]);//orgprint
         (*node_index)++;
         new_nodes[index_stamp].right = convert_2_KDtree_code(arr_right, new_nodes, &(*node_index), th, brute_force_range, chosen_dim, random_med);
         free(arr_right);
     }
     else {
         for (i = 0; i < DIM; i++) new_nodes[index_stamp].data.values[i] = arr_right[0].values[i];
-        printf("R----NULL\n");
-        print_nD_arr(arr_right);
-        print_node(&new_nodes[index_stamp]);
+        //printf("R----NULL\n");//orgprint
+        //print_nD_arr(arr_right);//orgprint
+        //print_node(&new_nodes[index_stamp]);//orgprint
         new_nodes[index_stamp].right = NULL;
         free(arr_right);
     }
-    printf("------------------pop------------------------");
-    printf("index_stamp: %d\n", index_stamp);
+    //printf("------------------pop------------------------");//orgprint
+    //printf("index_stamp: %d\n", index_stamp);//orgprint
     //if (index_stamp == 6) {};//debug only
     return &new_nodes[index_stamp];
 }
-int calc_total_node_number(point* arr) {
-    //    print_nD_arr(arr);
-    return 2 * (int)arr[0].th - 1 + TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+int log2n(unsigned int n) {
+    return (n > 1) ? 1 + log2n(n / 2) : 0;
 }
-node* convert_2_KDtree(point* arr, bool random_med) {
+unsigned long long calc_total_node_number(point* arr) {
+    //    print_nD_arr(arr);
+    unsigned long long buff;
+    double log2x = log2n((int)arr[0].th);
+    buff = pow(2, (int)((log2x)+1));
+    
+   
+    //return 2 * buff + TREE_space_extra_buff;
+    return buff - 1 + (int)arr[0].th + TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+//    return 2*(buff)-1-(buff-(int)arr[0].th)+TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+}
+node* convert_2_KDtree(point* arr, bool random_med,unsigned long long rectify) {
     node* new_nodes;
-    int node_num, node_index;
-    node_num = calc_total_node_number(arr);
-    printf("the node_number is: %d\n", node_num);
+    unsigned long long node_num, node_index;
+    node_num = calc_total_node_number(arr)+rectify;
+    //re-modify node_num
+    store_avi_node_num = node_num;
+    //printf("the node_number is: %d\n", node_num);//orgprint
     //new_nodes = (node*)malloc(sizeof(node) * node_num);
     cudaMallocManaged(&new_nodes, sizeof(node) * node_num);
     node_index = 0;
@@ -494,32 +524,21 @@ void test_gpu_cancompile() {
 }
 __global__ 
 void k_nearest_search_k1_GPU(node** root,point target,int tree_num,point* point_list){//return nearest_point
+    
     int i;// , route_store;
     int dim_count;
-    //__shared__  node* current;
-    /*cudaMalloc((void**)&current, sizeof(node) * tree_num);*/
-    //point_list=(point*)malloc(sizeof(point)*tree_num);
+    //int debug;
 
     i = blockIdx.x * blockDim.x + threadIdx.x;
-    printf("My current thread(%d)___\n", i);
-    //for (i=0;i<tree_num;i++){
+   // printf("\n----------------------thread------------------------------------%d\n", i);
     if(i<tree_num){
-        //route_store = 0;
-        //printf("GPU process_____1\n");
-        //current = (node*)0; // NOT current's fault!
-        //current=root[i];       
+        if (root[i] == NULL) {
+            printf("Null root skip!\n");
+            return;
+        }
+        //printf("thread(%d) working!\n", i);//orgprint
         dim_count=0;
-        //printf("traverse route:\n");
-        //print_this_point_woth_gpu(root[i]->data);//debugging use
-        //found_route[i][route_store] = root[i]->data;
-        //route_store++;
-        //printf("GPU process_____2\n");
-        //int k = 3;
-        
-        
         while(root[i]->left && root[i]->right){
-            //printf("GPU process_____%d \t traversing!\n", k); k++;
-            //printf("Wellcom to GPU success!_____%d\n",k++);
             if(root[i]->data.values[dim_count]>target.values[dim_count] && root[i]->left){
                 root[i] = root[i]->left;
             } else if (root[i]->data.values[dim_count]<=target.values[dim_count] && root[i]->right){
@@ -531,15 +550,10 @@ void k_nearest_search_k1_GPU(node** root,point target,int tree_num,point* point_
             }
             dim_count++;
             dim_count%=DIM;
-            //printf("--->");
-            //print_this_point_woth_gpu(root[i]->data);
-            //found_route[i][route_store++] = root[i]->data;
-            //if(dim_count==0) printf("\n");
         }
         distance_calc_gpu(target,&root[i]->data);
-        //printf("\n");
         point_list[i]= root[i]->data;
-        //route_store[i][0] = route_store;
+        /*debug = 4;*/
     }
 }
 point* k_nearest_search_wo_recusrion_stack(int k,node* tree,bool approximate,point target){
@@ -600,7 +614,41 @@ point* read_data_from_txt(char* fname){
 int calc_node_rounte_space_avg(int data_num) {
     return ((log(data_num) / log(2) + 1) + data_num) / 2;
 }
+void write_traverseresult_to_disk(char rn,int num_tree, unsigned long long num_queries, double time_taken, unsigned long long queries_max, unsigned long long  queries_min, unsigned long long  queries_interval, int block_num, int threads_num_per_block) {
+    FILE* file;
+    char buffer[128];
+    char tmp[16];
+    char fname_format[] = "%cblock_num%d,threads_per_block%d,treenum%d,quiers_max%llu,quiers_min%llu,quiers_interval%llu .txt";
+    char fname[sizeof fname_format + 128];
+    sprintf(fname, fname_format,rn,block_num,threads_num_per_block, num_tree, queries_max,queries_min,queries_interval);
 
+    if (write_Data_head) {
+        file = fopen(fname, "a");
+        fprintf_s(file, " %d |  %llu |  %lf\n", num_tree, num_queries, time_taken);
+    }
+    else {
+        write_Data_head = true;
+        file = fopen(fname, "w");
+        fprintf_s(file, "num_tree | num_queries | time_taken(s)\n");
+    }
+    /*//num_tree
+    strcpy(buffer, "num_tree: ");
+    itoa(num_tree, tmp, 10);
+    strcat(buffer, tmp);
+    
+    //num_queries
+    strcat(buffer, "  |  num_queries");
+    ulltoa(num_queries, tmp, 10);
+    strcat(buffer, tmp);
+
+    //time_taken
+    strcat(buffer, "  |  num_queries");
+    sprintf(tmp, "%lf", time_taken);
+    strcat(buffer, tmp);
+    fprintf(file, "%s\n", buffer);*/
+
+    fclose(file);
+}
 int main(){
     printf("process starts!\n");
     clock_t main_start;
@@ -780,74 +828,461 @@ int main(){
     printf("target: ");print_this_point(target);
     print_nD_arr(nearest_points);
 */
-//Generate 32 tree with same array
 
-//    point* orgarr=super_gen_rand_arr(8,144);
-//    write_data_to_txt("8points_rand_max144.txt",orgarr);
-    const int tree_num = 100;
+//Generate trees & traverse with gpu
+/*
+//    point* orgarr=super_gen_rand_arr(8,144);//testing
+//    write_data_to_txt("8points_rand_max144.txt",orgarr);//testing
+    const int tree_num = 32;
     node** tree;
     cudaMallocManaged(&tree,sizeof(node)*tree_num);
     //node* tree[tree_num];
     int i;
     
-    point* orgarr=read_data_from_txt("8points_rand_max144.txt");
+    point* orgarr=read_data_from_txt("12pow_points_rand_max65535.txt");//NO: 13,14,15,16 ;PNO: 11, 12
     for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,true);
     free(orgarr);
-    for(i=0;i<tree_num;i++) {
-        print2DUtil(tree[i],0);
-        printf("\n\n------------------------------------------------------\n\n\n\n\n");
-    }
+    //orgprint
+    //for(i=0;i<tree_num;i++) {
+    //    print2DUtil(tree[i],0);
+    //    printf("\n\n------------------------------------------------------\n\n\n\n\n");
+    //}
     point target;
     point* found;
 
-    //node* tree_gpu[tree_num];
-    //cudaMalloc(&tree_gpu, sizeof(node)*tree_num);
-    //cudaMemcpy(tree_gpu, tree, sizeof(node) * tree_num, cudaMemcpyHostToDevice);
-    /*
-    Q:
-        cudaMalloc only for 1D array 
-           
-    */
-    //for (i = 0; i < tree_num; i++) {
-    //    for (j = 0; j < DIM; j++) {
-    //        cudaMalloc((void**)&(tree_gpu[i]->data.values[j]), sizeof(float));
-    //        cudaMemcpy(tree_gpu[i]->data.values[j], tree[i]->data.values[j], sizeof(float), cudaMemcpyHostToDevice);
+    target.values[0] = 33333;
+    target.values[1] = 33333;
+    target.values[2] = 11111;
+    //printf("target point: ");
+    //print_this_point_woth(target);
+    //printf("\n");
 
-    //    }
-    //    cudaMalloc((void**)&(tree_gpu[i]->data.th), sizeof(float));
-    //    cudaMalloc((void**)&(tree_gpu[i]->left), sizeof(node));
-    //    cudaMalloc((void**)&(tree_gpu[i]->right), sizeof(node));
-    //    
-    //}
-    //for (i = 0; i < tree_num; i++) {
-    //    cudaMalloc((void**)&(tree_gpu[i]->data), sizeof(point));
-    //    cudaMalloc((void**)&(tree_gpu[i]->left), sizeof(node));
-    //    cudaMalloc((void**)&(tree_gpu[i]->right), sizeof(node));
-    //    cudaMemcpy(&tree_gpu[i]->data, &tree[i]->data, sizeof(point), cudaMemcpyHostToDevice);
-    //    cudaMemcpy(&tree_gpu[i]->left, &tree[i]->left, sizeof(node), cudaMemcpyHostToDevice);
-    //    cudaMemcpy(&tree_gpu[i]->right, &tree[i]->right, sizeof(node), cudaMemcpyHostToDevice);
-    //}
-
-    target.values[0] = 32;
-    target.values[1] = 11;
-    target.values[2] = 65;
-    printf("target point: ");
-    print_this_point_woth(target);
-    printf("\n");
-
-
+    //GPU part--start!
     cudaMallocManaged(&found, sizeof(int) * (tree_num));
-
-    //found[0].th = 9;//testing->successful!
-    //k_nearest_search_k1_GPU <<<1,1>>> (tree_gpu,target,tree_num,found);
-    k_nearest_search_k1_GPU << <1, tree_num >> > (tree, target, tree_num, found);
+    clock_t traverse_start=clock();
+    float time;
+    cudaEvent_t start, stop;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventRecord(start, 0);
+    k_nearest_search_k1_GPU << <20, tree_num >> > (tree, target, tree_num, found);
     cudaDeviceSynchronize();
+    cudaEventRecord(stop, 0);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&time, start, stop);
+    //GPU part--END
+    printf("ttraverse all trees time taken%3.6f ms\n", time);
     //show four points
-    printf("\n\n==============================\nfound:\n");
-    for(i=0;i<tree_num;i++){
-        print_this_point(found[i]);
-        printf("\n");
-    }
+    //printf("\n\n==============================\nfound:\n");
+    //for(i=0;i<tree_num;i++){
+    //    print_this_point(found[i]);
+    //    printf("\n");
+    //}
     cudaFree(found);
+    */
+// Final. Traverse methods change test.---try query points & tree_num & 1 block & N Threads
+ /*
+//original
+    //int treeloop;
+    int tree_num;
+    int jmpVal;// skip error mem access
+    //for(treeloop=8;treeloop>=7;treeloop--) {//control tree number
+        //treeloop = 1;   
+        //tree_num = mypow(2, treeloop);//2,4,8,16,32,64,128//,256
+        tree_num = 32;
+        node **tree;
+        //cudaMallocManaged(&tree, sizeof(node) * max_tree_num);
+        
+        unsigned long long i;
+        static unsigned long long rectify = 0;
+        int j,previous_j,k;
+        point *orgarr;
+        
+
+        unsigned long long queries_max = mypow(2, 14);//14
+        unsigned long long queries_min = mypow(2, 2);
+        unsigned long long loop_interval,queries_interval = mypow(2, 9);//9
+        loop_interval = queries_interval;
+        for (i = queries_max; i >= queries_min; i -= loop_interval) {//control query points number
+            
+            orgarr = super_gen_rand_arr(i, 65535);//generated immediately
+            
+
+
+
+            //orgarr = super_gen_seq_arr(i, false);
+           
+            cudaMallocManaged(&tree, sizeof(node) * (tree_num));
+            for (j = 0; j < tree_num; j++) {
+                jmpVal = setjmp(jmpbuffer);
+                if (jmpVal == 0) {//norm case
+                    
+
+                    tree[j] = convert_2_KDtree(orgarr, true, rectify);
+                    rectify = 0;
+                    previous_j= j;
+
+                }
+                else if (jmpVal == 1) {// Null is return by CudaMallocManagement occur, skip, becasue excess Cuda ctrl's memory 
+                    printf("newNodes is NULL!\n");
+                    jmpVal = 0;
+                    //j = store_j;
+                    continue;
+                }
+                else if (jmpVal == 2) {//if allocated node memory insufficient
+                    rectify++;
+                    jmpVal = 0;
+                    j = previous_j;//j->j-1
+                    free(tree[j]);
+                }
+
+            }
+            free(orgarr);
+            //printf("traverse------------------------------------------------\n");
+            point target;
+            point* found;
+
+            target.values[0] = 32751;
+            target.values[1] = 33751;
+            target.values[2] = 30000;
+            //target.values[0] = 4096;
+            //target.values[1] = 4196;
+            //target.values[2] = 4296;
+            //printf("target point: ");
+            //print_this_point_woth(target);
+            //printf("\nGPU part--start!\n");
+
+
+            cudaMallocManaged(&found, sizeof(point) * (tree_num));//was sizeof(int)
+            clock_t traverse_start = clock();
+            float time;
+            cudaEvent_t start, stop;
+            cudaEventCreate(&start);
+            cudaEventCreate(&stop);
+            cudaEventRecord(start, 0);
+            k_nearest_search_k1_GPU << < 1, tree_num >> > (tree, target, tree_num, found);
+            //k_nearest_search_k1_GPU << < tree_num, 32 >> > (tree, target, tree_num, found);
+            cudaDeviceSynchronize();//CPU stop
+
+            cudaEventRecord(stop, 0);
+            cudaEventSynchronize(stop);
+            cudaEventElapsedTime(&time, start, stop);
+            //GPU part--END
+
+            printf("ttraverse all trees time taken%3.6f s\n", time);
+            //show four points
+            //printf("found:\n");
+            //for (j = 0; j < tree_num; j++) {
+            //    printf("%d\t", j);
+            //    print_this_point(found[j]);
+            //    printf("\n");
+            //}
+
+
+            //traverse---END
+            cudaFree(found);//need
+            //for (j = 0; j < tree_num; j++) {
+            //    cudaFree(tree[j]);
+            //}
+            cudaFree(tree);//need
+            //free(orgarr);
+        //write text to disk here
+            printf("\n\n\ntree number %d\tquery points number %llu, true interval %llu \n", tree_num, i,loop_interval);
+            write_traverseresult_to_disk(tree_num, i, time,queries_max,queries_min,queries_interval);
+            if ((i < 4 * loop_interval)&&(loop_interval!=1)) loop_interval /= 2;
+        }
+
+    */
+//Final. Generate query points to compare performance in the future.
+/*
+    unsigned long long i;
+    point* orgarr;
+    unsigned long long queries_max = mypow(2, 14);//14
+    unsigned long long queries_min = mypow(2, 2);
+    unsigned long long loop_interval, queries_interval = mypow(2, 9);//9
+    
+    //write text
+    char fname_format[] = "rand_queries_%llu.txt";
+    char fname[sizeof fname_format + 128];
+    
+
+
+    loop_interval = queries_interval;
+
+    for (i = queries_max; i >= queries_min; i -= loop_interval) {//control query points number
+        orgarr = super_gen_rand_arr(i, 65535);//generated immediately
+        sprintf(fname, fname_format, i);
+        write_data_to_txt(fname, orgarr);
+        if ((i < 4 * loop_interval) && (loop_interval != 1)) loop_interval /= 2;
+        printf(".");
+    }
+    */
+// Final. Traverse metods test; input data from disk. ->1 block  tree_num threads
+/*
+    int tree_num;
+    int jmpVal;// skip error mem access
+    tree_num = 32;
+    node** tree;
+    unsigned long long i;
+    static unsigned long long rectify = 0;
+    int j, previous_j, k;
+    point* orgarr;
+    unsigned long long queries_max = mypow(2, 14);//14
+    unsigned long long queries_min = mypow(2, 2);
+    unsigned long long loop_interval, queries_interval = mypow(2, 9);//9
+    loop_interval = queries_interval;
+    char fname_format[] = "rand_queries_%llu.txt";
+    char fname[sizeof fname_format + 128];
+    for (i = queries_max; i >= queries_min; i -= loop_interval) {//control query points number
+        sprintf(fname, fname_format, i);
+        orgarr = read_data_from_txt(fname);
+
+        cudaMallocManaged(&tree, sizeof(node) * (tree_num));
+        for (j = 0; j < tree_num; j++) {
+            jmpVal = setjmp(jmpbuffer);
+            if (jmpVal == 0) {//norm case
+                tree[j] = convert_2_KDtree(orgarr, true, rectify);
+                rectify = 0;
+                previous_j = j;
+            }
+            else if (jmpVal == 1) {// Null is return by CudaMallocManagement occur, skip, becasue excess Cuda ctrl's memory 
+                printf("newNodes is NULL!\n");
+                jmpVal = 0;
+                //j = store_j;
+                continue;
+            }
+            else if (jmpVal == 2) {//if allocated node memory insufficient
+                rectify++;
+                jmpVal = 0;
+                j = previous_j;//j->j-1
+            }
+        }
+        free(orgarr);
+        //printf("traverse------------------------------------------------\n");
+        point target;
+        point* found;
+        target.values[0] = 32751;
+        target.values[1] = 33751;
+        target.values[2] = 30000;
+         cudaMallocManaged(&found, sizeof(point) * (tree_num));//was sizeof(int)
+        clock_t traverse_start = clock();
+        float time;
+        cudaEvent_t start, stop;
+        cudaEventCreate(&start);
+        cudaEventCreate(&stop);
+        cudaEventRecord(start, 0);
+        k_nearest_search_k1_GPU << < 1, tree_num >> > (tree, target, tree_num, found);
+        cudaDeviceSynchronize();//CPU stop
+        cudaEventRecord(stop, 0);
+        cudaEventSynchronize(stop);
+        cudaEventElapsedTime(&time, start, stop);
+        printf("ttraverse all trees time taken%3.6f s\n", time);
+        cudaFree(found);//need
+        cudaFree(tree);//need
+        //free(orgarr);
+        //write text to disk here
+        printf("\n\n\ntree number %d\tquery points number %llu, true interval %llu \n", tree_num, i, loop_interval);
+        write_traverseresult_to_disk(tree_num, i, time, queries_max, queries_min, queries_interval);
+        if ((i < 4 * loop_interval) && (loop_interval != 1)) loop_interval /= 2;
+    }
+    */
+
+ // Final. Traverse metods test; input data from disk. ->tree_num block 1 thread for each block
+    /*
+    int tree_num;
+    int jmpVal;// skip error mem access
+    tree_num = 32;
+    node** tree;
+    unsigned long long i;
+    static unsigned long long rectify = 0;
+    int j, previous_j, k;
+    point* orgarr;
+    unsigned long long queries_max = mypow(2, 14);//14
+    unsigned long long queries_min = mypow(2, 2);
+    unsigned long long loop_interval, queries_interval = mypow(2, 2);
+    loop_interval = queries_interval;
+    char fname_format[] = "rand_queries_%llu.txt";
+    char fname[sizeof fname_format + 128];
+    write_Data_head = true;
+    for (i = queries_max; i >= queries_min; i /= loop_interval) {//control query points number
+        sprintf(fname, fname_format, i);
+        orgarr = read_data_from_txt(fname);
+
+        cudaMallocManaged(&tree, sizeof(node) * (tree_num));
+        for (j = 0; j < tree_num; j++) {
+            jmpVal = setjmp(jmpbuffer);
+            if (jmpVal == 0) {//norm case
+                tree[j] = convert_2_KDtree(orgarr, true, rectify);
+                rectify = 0;
+                previous_j = j;
+            }
+            else if (jmpVal == 1) {// Null is return by CudaMallocManagement occur, skip, becasue excess Cuda ctrl's memory 
+                printf("newNodes is NULL!\n");
+                jmpVal = 0;
+                //j = store_j;
+                continue;
+            }
+            else if (jmpVal == 2) {//if allocated node memory insufficient
+                rectify++;
+                jmpVal = 0;
+                j = previous_j;//j->j-1
+            }
+        }
+        free(orgarr);
+        //printf("traverse------------------------------------------------\n");
+        point target;
+        point* found;
+        target.values[0] = 32751;
+        target.values[1] = 33751;
+        target.values[2] = 30000;
+        cudaMallocManaged(&found, sizeof(point) * (tree_num));//was sizeof(int)
+        float time;
+        cudaEvent_t start, stop;
+        int block_num,thread_num_per_block;
+        
+        for (j = 1; j <= tree_num; j++) {
+            block_num = j;
+            printf("block_num%d\n", block_num);
+            
+            thread_num_per_block = tree_num/block_num+(int)(tree_num % block_num!=0);
+            cudaEventCreate(&start);
+            cudaEventCreate(&stop);
+            cudaEventRecord(start, 0);
+            k_nearest_search_k1_GPU << < block_num, thread_num_per_block >> > (tree, target, tree_num, found);
+            cudaDeviceSynchronize();//CPU stop
+            cudaEventRecord(stop, 0);
+            cudaEventSynchronize(stop);
+            cudaEventElapsedTime(&time, start, stop);
+            printf("ttraverse all trees time taken%3.6f s\n", time);
+            cudaFree(found);//need
+            cudaFree(tree);//need
+            //free(orgarr);
+            //write text to disk here
+            printf("tree number %d\tquery points number %llu, true interval %llu \n\n\n", tree_num, i, loop_interval);
+            write_traverseresult_to_disk(tree_num, i, time, queries_max, queries_min, queries_interval,block_num,thread_num_per_block);
+            //exit(322);
+        }
+        if ((i < 4 * loop_interval) && (loop_interval != 1)) loop_interval /= 2;
+        else if (loop_interval == 1) break;
+    }
+    
+    */
+
+   // change tree order
+
+    int tree_num;
+    int jmpVal;// skip error mem access
+    tree_num = 32;
+    node** tree;
+    node** tree_reversed;
+    unsigned long long i;
+    static unsigned long long rectify = 0;
+    int j, previous_j, k;
+    point* orgarr;
+    unsigned long long queries_max = mypow(2, 14);//14
+    unsigned long long queries_min = mypow(2, 2);
+    unsigned long long loop_interval, queries_interval = mypow(2, 2);
+    loop_interval = queries_interval;
+    char fname_format[] = "rand_queries_%llu.txt";
+    char fname[sizeof fname_format + 128];
+    write_Data_head = true;
+    for (i = queries_max; i >= queries_min; i /= loop_interval) {//control query points number
+        sprintf(fname, fname_format, i);
+        orgarr = read_data_from_txt(fname);
+
+        cudaMallocManaged(&tree, sizeof(node) * (tree_num));
+        cudaMallocManaged(&tree_reversed, sizeof(node) * (tree_num));
+        for (j = 0; j < tree_num; j++) {
+            jmpVal = setjmp(jmpbuffer);
+            if (jmpVal == 0) {//norm case
+                tree[j] = convert_2_KDtree(orgarr, true, rectify);
+                tree_reversed[tree_num - j] = tree[j];
+                rectify = 0;
+                previous_j = j;
+            }
+            else if (jmpVal == 1) {// Null is return by CudaMallocManagement occur, skip, becasue excess Cuda ctrl's memory 
+                printf("newNodes is NULL!\n");
+                jmpVal = 0;
+                //j = store_j;
+                continue;
+            }
+            else if (jmpVal == 2) {//if allocated node memory insufficient
+                rectify++;
+                jmpVal = 0;
+                j = previous_j;//j->j-1
+            }
+        }
+        free(orgarr);
+        //printf("traverse------------------------------------------------\n");
+        point target;
+        point* found;
+        target.values[0] = 32751;
+        target.values[1] = 33751;
+        target.values[2] = 30000;
+        cudaMallocManaged(&found, sizeof(point) * (tree_num));//was sizeof(int)
+        float time;
+        cudaEvent_t start, stop;
+        int block_num, thread_num_per_block;
+
+        for (j = 1; j <= tree_num; j++) {
+            block_num = j;
+            printf("block_num%d\n", block_num);
+
+            thread_num_per_block = tree_num / block_num + (int)(tree_num % block_num != 0);
+            cudaEventCreate(&start);
+            cudaEventCreate(&stop);
+            cudaEventRecord(start, 0);
+            k_nearest_search_k1_GPU << < block_num, thread_num_per_block >> > (tree, target, tree_num, found);
+            cudaDeviceSynchronize();//CPU stop
+            cudaEventRecord(stop, 0);
+            cudaEventSynchronize(stop);
+            cudaEventElapsedTime(&time, start, stop);
+            printf("ttraverse all trees time taken%3.6f s\n", time);
+            //cudaFree(found);//need
+            //cudaFree(tree);//need
+            //free(orgarr);
+            //write text to disk here
+            printf("tree number %d\tquery points number %llu, true interval %llu \n\n\n", tree_num, i, loop_interval);
+            write_traverseresult_to_disk('n',tree_num, i, time, queries_max, queries_min, queries_interval, block_num, thread_num_per_block);
+        }
+        cudaFree(tree);//need
+        ////make reversed
+        //node* tmp;
+        //for (j = 0; j <= tree_num/2; j++) {
+        //    tmp = tree[j];
+        //    tree[j] = tree[tree_num - j];
+        //    tree[tree_num - j] = tmp;
+        //}
+
+        //reverse tree traverse
+        for (j = 1; j <= tree_num; j++) {
+            block_num = j;
+            printf("block_num%d\n", block_num);
+
+            thread_num_per_block = tree_num / block_num + (int)(tree_num % block_num != 0);
+            cudaEventCreate(&start);
+            cudaEventCreate(&stop);
+            cudaEventRecord(start, 0);
+            k_nearest_search_k1_GPU << < block_num, thread_num_per_block >> > (tree_reversed, target, tree_num, found);
+            cudaDeviceSynchronize();//CPU stop
+            cudaEventRecord(stop, 0);
+            cudaEventSynchronize(stop);
+            cudaEventElapsedTime(&time, start, stop);
+            printf("ttraverse all trees time taken%3.6f s\n", time);
+            //cudaFree(found);//need
+            //cudaFree(tree);//need
+            //free(orgarr);
+            //write text to disk here
+            printf("tree number %d\tquery points number %llu, true interval %llu \n\n\n", tree_num, i, loop_interval);
+            write_traverseresult_to_disk('r',tree_num, i, time, queries_max, queries_min, queries_interval, block_num, thread_num_per_block);
+
+        }
+        cudaFree(found);//need
+        
+        cudaFree(tree_reversed);//need
+        if ((i < 4 * loop_interval) && (loop_interval != 1)) loop_interval /= 2;
+        else if (loop_interval == 1) break;
+    }
+   
     return clock()-main_start;
 }

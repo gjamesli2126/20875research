@@ -10,17 +10,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d231fad-f13d-4a66-83ee-f653c25ce8f1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/main.c.bak.cpu" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test_quick_sort.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/3.15.3/CMakeRCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../two_bintree_approximate/knn-2x2b.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/8points_rand_max144.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bug_screen)shots/Annotation 2020-03-27 013935.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel.cu.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel.cu.bak2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/.idea/sshConfigs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/.idea/sshConfigs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/8points_rand_max144.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/8points_rand_max144.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/9points_rand_max39.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/9points_rand_max39.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/C.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/C.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/two_bintree_approximate.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/cmake-build-debug/two_bintree_approximate.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/main-24-Hg_acEr.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate/main_bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/74ba632d305bd746/KERNEL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/74ba632d305bd746/KERNEL.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/e5c82629c553046/KERNEL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/e5c82629c553046/KERNEL.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/16points_rand.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel.cu" beforeDir="false" afterPath="$PROJECT_DIR$/kernel.cu" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/kernel.cu-52788533.deps" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/kernel.cu-52788533.deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/kernel.cu.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/kernel.cu.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/CudaCompile.read.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/CudaCompile.read.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.exe" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.exp" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.exp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.lib" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.lib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.log" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/two_bintree_approximate___CUDA.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/vc142.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/vc142.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/kernel.cu-52788533.deps" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/kernel.cu-52788533.deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/kernel.cu.obj" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/kernel.cu.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/CudaCompile.read.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/CudaCompile.read.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/link.delete.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/link.delete.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.exe" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.exp" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.exp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.lib" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.lib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.log" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/two_bintree_approximate___CUDA.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Release/vc142.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Release/vc142.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +77,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Ysbdu6iajIbzREoH6gDwGj57h3" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -40,9 +86,17 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../two_bintree_approximate" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="SvnConfiguration">
@@ -56,6 +110,10 @@
       <option name="presentableId" value="Default" />
       <updated>1583734340004</updated>
       <workItem from="1583734343910" duration="28000" />
+      <workItem from="1587616708128" duration="6000" />
+      <workItem from="1588397519142" duration="40000" />
+      <workItem from="1588405347849" duration="2124000" />
+      <workItem from="1588412866173" duration="7000" />
     </task>
     <servers />
   </component>

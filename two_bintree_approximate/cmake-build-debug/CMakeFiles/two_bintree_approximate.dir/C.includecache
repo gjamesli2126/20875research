@@ -15,8 +15,12 @@ time.h
 -
 unistd.h
 -
+string.h
+-
 math.h
 -
 stdbool.h
+-
+setjmp.h
 -
 

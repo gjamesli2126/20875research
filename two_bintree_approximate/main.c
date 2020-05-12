@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
 #include <math.h>
 #include <stdbool.h>
+#include <setjmp.h>
 #define COUNT 20
 
 #define DATASET_NUM 4
@@ -12,47 +14,55 @@
 #define max_clock_store 8
 #define DIM 3
 #define TREE_space_extra_buff 0
+#define point_space_extra_buff 8
 clock_t run_time_debug[max_clock_store];
 int clock_index=0;
+jmp_buf jmpbuffer;
 typedef struct point{
     float values[DIM];
     float th;//store distance or quantity
 }point;
-
 typedef struct node{
     point data;
     struct node* left;
     struct node* right;
 }node;
-int mypow(int x,int y){
-    int result=1;
-    for (int i = 0; i <y ; ++i) {
+unsigned long long mypow(int x,int y){
+    unsigned long long result=1;
+    int i;
+    for (i = 0; i <y ; i++) {
         result*=x;
     }
+//    printf("%llu",result);
     return result;
 }
 void print_nD_arr(point* arr){
     int size=(int)roundf(arr[0].th);//roundf: in order to make sure floating error does not affect size number!
     printf("index");
-    for (int k = 0; k <DIM ; ++k) printf("\t\tdata[%d]\t",k);
+    int k,i,j;
+    for (k = 0; k <DIM ; ++k) printf("\t\tdata[%d]\t",k);
     printf("\t\tth/dist\n");
 
-    for (int i = 0; i <=size ; ++i) {
+    for (i = 0; i <=size ; ++i) {
         printf("%d\t\t",i);
-        for (int j = 0; j <DIM ; ++j) {
+        for (j = 0; j <DIM ; ++j) {
             printf("%f\t\t",arr[i].values[j]);
         }
         printf("%d\n",(int)arr[i].th);
     }
 }
 void print_this_point_woth(point thispoint){
+    int i;
+
     printf("(");
-    for (int i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
+
+    for (i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
     printf("\b\b)");
 }
 void print_this_point(point thispoint){
+    int i;
     printf("(");
-    for (int i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
+    for (i = 0; i <DIM ; ++i) printf("%.1f, ",thispoint.values[i]);
     printf("\b\b)_");
     printf("%.1f",thispoint.th);
     printf("\n");
@@ -103,7 +113,8 @@ point* deep_copy(point *arr){
 
 int print_test_qsort(point* arr){
     int val=0;
-    for (int i = 1; i <=(int)roundf(arr[0].th) ; ++i) {
+    int i;
+    for (i = 1; i <=(int)roundf(arr[0].th) ; ++i) {
         val+=mypow(10,(int)roundf(arr[0].th)-i)*(int)arr[i].values[0];
     }
     return val;
@@ -203,7 +214,7 @@ void show_time(char* str){
 point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool random_pick_med){
 //    int portion=100/split_portion;// for annoy should change here! maybe: int->float//original
     // for GPU. Generate 32 kinds of portion
-    printf("--------new super selection----------\n");
+//    printf("--------new super selection----------\n");//org
 
     int orgsorted_size=(int)roundf(orgarr[0].th);
     point *new_arr;
@@ -227,11 +238,11 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         do{
             rindex2=super_rand(1,(int)sorted_orgarr[0].th);
             if(rindex1==rindex2) rindex2= (rindex2+super_rand(0,(int)sorted_orgarr[0].th-2))%(int)sorted_orgarr[0].th+1;
-                //org rindex2+- rand()
+            //org rindex2+- rand()
         }while(rindex1==rindex2);//randomed value cannot be the same//but condition variable is slow So this is just a backup plan
 //        show_time("find rindex2");
-        printf("index=%d,%d\n",rindex1,rindex2);
-        //calc where should the index should be inserted in the array
+//        printf("index=%d,%d\n",rindex1,rindex2);
+        //calc where should the index should be inserted //orgin the array
         val1=sorted_orgarr[rindex1];
         val2=sorted_orgarr[rindex2];
         //find out the mid value
@@ -240,8 +251,8 @@ point* super_selection(point *orgarr,const char *up_down,int choose_dim,bool ran
         //find out the cutting index--with dim
         mid_index=find_mid_index(sorted_orgarr,mid_point,choose_dim);
 
-        printf("using %.1f as mid_index\n",((float)mid_index+0.5));
-//        show_time("find mid_index");
+//        printf("using %.1f as mid_index\n",((float)mid_index+0.5));
+//        show_time("find mid_index");//org
 
     }else if(!random_pick_med && (int)sorted_orgarr[0].th>1){
         mid_index = (int) ((1 + orgsorted_size) / 2);
@@ -287,59 +298,69 @@ node* convert_2_KDtree_code(point* arr,node* new_nodes,int* node_index,float th,
 //    print_nD_arr(arr);
     chosen_dim++;
     chosen_dim%=DIM;
-    printf("Current Dim %d____node_index %d\n",chosen_dim,*node_index);
+//    printf("Current Dim %d____node_index %d\n",chosen_dim,*node_index);//org
 //    printf("updown st\n");
+    rerun:
     arr_left=(super_selection(arr,"down",chosen_dim,random_med));//too slow!!!!!!!!!!!fix here----fixed!
     arr_right=(super_selection(arr,"up",chosen_dim,random_med));
 //    printf("updown End\n");
     new_nodes[index_stamp].data.th=th;
     if((int)roundf(arr_left[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_left[0].values[i];
-        printf("L\n");
-        print_nD_arr(arr_left);
-        print_node(&new_nodes[index_stamp]);
+//        printf("L\n");//org
+//        print_nD_arr(arr_left);//org
+//        print_node(&new_nodes[index_stamp]);//org
         (*node_index)++;
         new_nodes[index_stamp].left=convert_2_KDtree_code(arr_left,new_nodes,&(*node_index),th,brute_force_range,chosen_dim,random_med);
         free(arr_left);
     }else{
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_left[0].values[i];
-        printf("L----NULL\n");
-        print_nD_arr(arr_left);
-        print_node(&new_nodes[index_stamp]);
+//        printf("L----NULL\n");//org
+//        print_nD_arr(arr_left);//org
+//        print_node(&new_nodes[index_stamp]);//org
         new_nodes[index_stamp].left=NULL;
         free(arr_left);
     }
     if((int)roundf(arr_right[0].th)>=brute_force_range){
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_right[0].values[i];
-        printf("R\n");
-        print_nD_arr(arr_right);
-        print_node(&new_nodes[index_stamp]);
+//        printf("R\n");//org
+//        print_nD_arr(arr_right);//org
+//        print_node(&new_nodes[index_stamp]);//org
         (*node_index)++;
+//        if(index_stamp>(int)new_nodes[0].data.th) goto rerun;
         new_nodes[index_stamp].right=convert_2_KDtree_code(arr_right,new_nodes,&(*node_index),th,brute_force_range,chosen_dim,random_med);
         free(arr_right);
     }else{
         for(i=0;i<DIM;i++) new_nodes[index_stamp].data.values[i]= arr_right[0].values[i];
-        printf("R----NULL\n");
-        print_nD_arr(arr_right);
-        print_node(&new_nodes[index_stamp]);
+//        printf("R----NULL\n");//org
+//        print_nD_arr(arr_right);//org
+//        print_node(&new_nodes[index_stamp]);//org
+//        if(index_stamp>(int)new_nodes[0].data.th) goto rerun;
         new_nodes[index_stamp].right=NULL;
         free(arr_right);
     }
-    printf("------------------pop------------------------\n");
-    printf("index_stamp: %d\n",index_stamp);
+//    printf("------------------pop------------------------\n");//org
+//    printf("index_stamp: %d\n",index_stamp);//org
     if(index_stamp==6){};//debug only
     return &new_nodes[index_stamp];
 }
+int log2n(unsigned int n){
+    return (n > 1) ? 1 + log2n(n / 2) : 0;
+}
 int calc_total_node_number(point* arr){
 //    print_nD_arr(arr);
-    return 2*(int)arr[0].th-1+TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+    int buff;
+    double log2x=log2n((int)arr[0].th);
+    buff=pow(2,(int)((log2x)+1));
+    return buff-1+(int)arr[0].th+TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
+//    return 2*(buff)-1-(buff-(int)arr[0].th)+TREE_space_extra_buff;//normally the TREE_space_extra_buff should be zero!
 }
 node* convert_2_KDtree(point* arr, bool random_med){
     node* new_nodes;
     int node_num,node_index;
     node_num=calc_total_node_number(arr);
-    printf("the node_number is: %d\n",node_num);
-    new_nodes=(node*)malloc(sizeof(node)*node_num);
+//    printf("the node_number is: %d\n",node_num);//org
+    new_nodes=(node*)malloc(sizeof(node)*(node_num+point_space_extra_buff));
     node_index=0;
 
     return convert_2_KDtree_code(arr,new_nodes,&node_index,1,1,-1,random_med);
@@ -381,6 +402,7 @@ void distance_calc(point target, point *on_leaf){
 }
 void k_nearest_search_code(int k,node* root,bool approximate,point target,int chosen_dim,point* nearest_points){
     //under occasion: approximate==true && only one point
+    int i;
     // this recursion is for approximate kNN search where k=1
     if(nearest_points[0].th>=(float)k) return;//return when have found k's element
     if(approximate) {
@@ -406,7 +428,7 @@ void k_nearest_search_code(int k,node* root,bool approximate,point target,int ch
     }else {
         if(chosen_dim==0) printf("\n");//for printing
         if (root == NULL) return;
-        else{printf("----->(");for (int i = 0; i <DIM ; ++i) {printf("%.1f ", root->data.values[i]); }printf(")");}
+        else{printf("----->(");for (i = 0; i <DIM ; ++i) {printf("%.1f ", root->data.values[i]); }printf(")");}
         bool is_leaf = (root->left == NULL) && (root->right == NULL);
         if ((nearest_points[1].values[chosen_dim] != root->data.values[chosen_dim] || nearest_points[0].th == 0) && (is_leaf)) {//(value comapre|| init)&&(is leaf)
             printf("S\t");//S means store!
@@ -518,13 +540,14 @@ int gpu_kd_portion(int parallel_num,int scaling){//scaling=1~parallel_num
 }
 void write_data_to_txt(char* fname,point* arr){
     FILE *f=fopen(fname,"w");
-    if(f==NULL) exit(2);
-    int k,i;
+    if(f==NULL) exit(987);
+    int k,j,i;
+//    print_nD_arr(arr);
 
     fprintf_s(f,"%d %d\n",DIM,(int)arr[0].th);
     for (i = 1; i <=(int)arr[0].th ; ++i) {
 //        fprintf_s(f,"%d\t\t",i);
-        for (int j = 0; j <DIM ; ++j) {
+        for ( j = 0; j <DIM ; ++j) {
             fprintf_s(f,"%f\t\t",arr[i].values[j]);
         }
         fprintf_s(f,"%d\n",(int)arr[i].th);
@@ -538,7 +561,7 @@ point* read_data_from_txt(char* fname){
     if(f==NULL) exit(2);
     int dim,num_data,i,j;
     fscanf(f,"%d %d\n",&dim,&num_data);//second line to read info
-    printf("dim:%d\tdatanum:%d\n",dim,num_data);
+//    printf("dim:%d\tdatanum:%d\n",dim,num_data);
 //    float buffdata[num_data+1][dim];
 //    int buffth[num_data];
     point *input;
@@ -558,6 +581,7 @@ point* read_data_from_txt(char* fname){
 int main(){
     clock_t main_start;
     run_time_debug[0]=main_start=clock();
+
 //    point* orgarr;
 //    orgarr=super_gen_seq_arr(DATASET_NUM,false);
 //    orgarr=super_gen_rand_arr(DATASET_NUM,48);
@@ -683,7 +707,7 @@ int main(){
 //These block tested with 4096 points & read write files & approximate precise search with random split KDtree
 /*
     //ouput generated point!
-//    write_data_to_txt("9points_rand_max39.txt",orgarr);
+    write_data_to_txt("9points_rand_max39.txt",orgarr);
 
     //input generated data point
     point* gotarr;
@@ -733,17 +757,35 @@ int main(){
     printf("target: ");print_this_point(target);
     print_nD_arr(nearest_points);
 */
-//Generate 32 tree with same array
+// just write point to disk
+/*
+    unsigned long long i;
+    char tmp[256];
+    point* orgarr;
+    for (i=4097;i<=mypow(2,32);i++){
+        printf("%d ",i);
+//        gennum=mypow(2,i);
 
-    point* orgarr=super_gen_rand_arr(8,144);
-    write_data_to_txt("8points_rand_max144.txt",orgarr);
-    const int tree_num=12;
+        orgarr=super_gen_rand_arr(i,65535);
+
+        ulltoa(i,tmp,10);
+        strcat(tmp,"points_rand_max65535.txt");
+//        printf("%s\n",tmp);
+        write_data_to_txt(tmp,orgarr);
+
+    }
+*/
+//Generate 32 tree with same array
+/*
+//    point* orgarr=super_gen_rand_arr(8,144);
+//    write_data_to_txt("8points_rand_max144.txt",orgarr);
+    const int tree_num=32;
     node* tree[tree_num];
-    int i;
-//    point* orgarr=read_data_from_txt("8points_rand_max144.txt");
-    for(i=0;i<tree_num;i++) tree[i]=convert_2_KDtree(orgarr,true);
-    free(orgarr);
-//    exit(332);
+    int jmpVal=setjmp(jmpbuffer);
+//    node* tree;
+    int i,j,store_i;
+    point* orgarr;
+
     for(i=0;i<tree_num;i++) {
         print2DUtil(tree[i],0);
         printf("\n\n------------------------------------------------------\n\n\n\n\n");
@@ -764,6 +806,56 @@ int main(){
         print_this_point_woth(found[i]);
         printf("\n");
 
+    }
+*/
+//    testing for convert2 KDtree from disk
+/*
+    const int tree_num=32;
+    node* tree[tree_num];
+    int jmpVal=setjmp(jmpbuffer);
+//    node* tree;
+    int i,j,store_i;
+    point* orgarr;
+    char tmp[256];
+    for(i=1;i<=5756;i++){
+        if(jmpVal==1){
+            jmpVal=0;
+            i=store_i;
+            continue;
+        }else{
+            itoa(i,tmp,10);
+            printf("%s ",tmp);
+            strcat(tmp,"points_rand_max65535.txt");
+            orgarr=read_data_from_txt(tmp);
+
+//            tree=convert_2_KDtree(orgarr,true);
+        for(j=0;j<tree_num;j++) tree[j]=convert_2_KDtree(orgarr,true);
+            free(orgarr);
+            store_i=i;
+        }
+
+    }
+*/
+//    testing for convert2 KDtree real time generate
+
+    const int tree_num=1;
+    node* tree[tree_num];
+    int jmpVal=setjmp(jmpbuffer);
+    unsigned long long i,store_i;
+    int j;
+    point* orgarr;
+    for(i=0;i<=mypow(2,16);i+=mypow(2,7)){
+        printf("%llu ",i);
+        if(jmpVal==1){
+            jmpVal=0;
+            i=store_i;
+            continue;
+        }else{
+            orgarr=super_gen_rand_arr(i,65535);
+            for(j=0;j<tree_num;j++) tree[j]=convert_2_KDtree(orgarr,true);
+            free(orgarr);
+            store_i=i;
+        }
     }
 
     return clock()-main_start;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="shay.ecn.purdue.edu" id="a8b0bef9-2e5c-4264-87d2-2afa7d6e5a71" port="22" username="li3261" />
+      <sshConfig authType="PASSWORD" host="scholar.rcac.purdue.edu" id="a8b0bef9-2e5c-4264-87d2-2afa7d6e5a71" port="22" username="li3261" />
       <sshConfig authType="PASSWORD" host="deepspeed1.ecn.purdue.edu" id="075dffaa-c5dd-4674-8cb2-03105b588090" port="22" username="vipaacc" />
       <sshConfig authType="PASSWORD" host="ecegrid.ecn.purdue.edu" id="fc370cc5-d7f5-48e9-a73d-831808781fda" port="22" username="li3261" />
     </configs>

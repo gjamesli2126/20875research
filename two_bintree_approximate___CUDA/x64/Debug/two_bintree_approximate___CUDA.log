@@ -1,6 +1,6 @@
 ﻿  Compiling CUDA source file kernel.cu...
   
-  D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.24.28314\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA\kernel.cu" 
+  D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.25.28610\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA\kernel.cu" 
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime.h(1): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(1431): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(3324): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
@@ -65,23 +65,25 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_ap
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(3324): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(9349): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime.h(1): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(130): warning : expression has no effect
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(135): warning : expression has no effect
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(206): warning : missing return statement at end of non-void function "find_mid_index"
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(211): warning : missing return statement at end of non-void function "find_mid_index"
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(554): warning : conversion from a string literal to "char *" is deprecated
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(305): warning : pointless comparison of unsigned integer with zero
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(544): warning : variable "i" was declared but never referenced
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(572): warning : conversion from a string literal to "char *" is deprecated
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(563): warning : variable "k" was declared but never referenced
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(562): warning : variable "i" was declared but never referenced
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(577): warning : variable "orgarr" was declared but never referenced
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(581): warning : variable "k" was declared but never referenced
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(787): warning : conversion from a string literal to "char *" is deprecated
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(595): warning : variable "orgarr" was declared but never referenced
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(785): warning : variable "j" was declared but never referenced
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(619): warning : variable "buffer" was declared but never referenced
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(785): warning : variable "k" was declared but never referenced
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(620): warning : variable "tmp" was declared but never referenced
+  
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(1180): warning : variable "k" was declared but never referenced
   
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime.h(1): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(1431): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
@@ -144,25 +146,37 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_ap
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(3324): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime_api.h(9349): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include\cuda_runtime.h(1): warning C4819: The file contains a character that cannot be represented in the current code page (950). Save the file in Unicode format to prevent data loss
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(130): warning : expression has no effect
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(135): warning : expression has no effect
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(206): warning : missing return statement at end of non-void function "find_mid_index"
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(211): warning : missing return statement at end of non-void function "find_mid_index"
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(554): warning : conversion from a string literal to "char *" is deprecated
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(305): warning : pointless comparison of unsigned integer with zero
   
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(787): warning : conversion from a string literal to "char *" is deprecated
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(572): warning : conversion from a string literal to "char *" is deprecated
   
   kernel.cu
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(87): warning C4305: '=': truncation from 'int' to 'float'
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(89): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(93): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(102): warning C4305: '=': truncation from 'int' to 'float'
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(104): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(198): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(544): warning C4101: 'i': unreferenced local variable
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(563): warning C4101: 'k': unreferenced local variable
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(577): warning C4101: 'orgarr': unreferenced local variable
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(785): warning C4101: 'k': unreferenced local variable
-D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(785): warning C4101: 'j': unreferenced local variable
-D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA\kernel.cu(206): warning C4715: 'find_mid_index': not all control paths return a value
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(93): warning C4305: '=': truncation from 'int' to 'float'
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(95): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(99): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(108): warning C4305: '=': truncation from 'int' to 'float'
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(110): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(122): warning C4244: '+=': conversion from 'unsigned __int64' to 'int', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(203): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%lld' in the format string
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%Id' in the format string
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%I64d' in the format string
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'unsigned __int64'
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%lld' in the format string
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%Id' in the format string
+  D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(306): note: consider using '%I64d' in the format string
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(370): warning C4244: '=': conversion from 'double' to 'unsigned __int64', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(562): warning C4101: 'i': unreferenced local variable
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(581): warning C4101: 'k': unreferenced local variable
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(595): warning C4101: 'orgarr': unreferenced local variable
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(615): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(620): warning C4101: 'tmp': unreferenced local variable
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(619): warning C4101: 'buffer': unreferenced local variable
+D:/OneDrive - purdue.edu/school PU_senior/20875 research/20875research/two_bintree_approximate___CUDA/kernel.cu(1180): warning C4101: 'k': unreferenced local variable
+D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA\kernel.cu(211): warning C4715: 'find_mid_index': not all control paths return a value
   two_bintree_approximate___CUDA.vcxproj -> D:\OneDrive - purdue.edu\school PU_senior\20875 research\20875research\two_bintree_approximate___CUDA\x64\Debug\two_bintree_approximate___CUDA.exe

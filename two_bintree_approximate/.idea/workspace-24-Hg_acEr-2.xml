@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="two_bintree_approximate" targetName="two_bintree_approximate" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b712317e-c8f5-4432-bfb7-772a7cb0ab46" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/8points_rand_max144.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/8points_rand_max144.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/two_bintree_approximate.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/two_bintree_approximate.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/two_bintree_approximate.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main-24-Hg_acEr.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/e5c82629c553046/KERNEL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/.vs/two_bintree_approximate___CUDA/v16/ipch/AutoPCH/e5c82629c553046/KERNEL.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/16points_rand.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/kernel.cu" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/kernel.cu" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/kernel.cu.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/kernel.cu.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.log" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/two_bintree_approximate___CUDA.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/vc142.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Debug/vc142.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/kernel.cu.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/kernel.cu.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bint.4C1A804A.tlog/link.delete.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bint.4C1A804A.tlog/link.delete.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bint.4C1A804A.tlog/two_bintree_approximate___CUDA.write.1u.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.log" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/two_bintree_approximate___CUDA.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/vc142.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../two_bintree_approximate___CUDA/x64/Release/vc142.pdb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/main.c" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1XrouUhUOsKe9ZNoLaU3PvCT5FI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="B:/lab4" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="RunManager">
+    <configuration name="two_bintree_approximate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="two_bintree_approximate" TARGET_NAME="two_bintree_approximate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="two_bintree_approximate" RUN_TARGET_NAME="two_bintree_approximate">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b712317e-c8f5-4432-bfb7-772a7cb0ab46" name="Default Changelist" comment="" />
+      <created>1581813797410</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581813797410</updated>
+      <workItem from="1581813800590" duration="56000" />
+      <workItem from="1581813858046" duration="4643000" />
+      <workItem from="1581819877757" duration="15883000" />
+      <workItem from="1581888845111" duration="11760000" />
+      <workItem from="1581904891436" duration="18311000" />
+      <workItem from="1582007690163" duration="2125000" />
+      <workItem from="1582148963721" duration="261000" />
+      <workItem from="1582157800481" duration="8990000" />
+      <workItem from="1582315953132" duration="15661000" />
+      <workItem from="1582407912393" duration="8407000" />
+      <workItem from="1582479582294" duration="558000" />
+      <workItem from="1582561160696" duration="7619000" />
+      <workItem from="1582786607944" duration="111000" />
+      <workItem from="1582786730799" duration="128000" />
+      <workItem from="1583116138683" duration="996000" />
+      <workItem from="1583280927699" duration="5696000" />
+      <workItem from="1583310343162" duration="2085000" />
+      <workItem from="1583312473170" duration="1527000" />
+      <workItem from="1583734375205" duration="1389000" />
+      <workItem from="1584286980288" duration="119000" />
+      <workItem from="1584815771105" duration="40000" />
+      <workItem from="1584816290288" duration="803000" />
+      <workItem from="1584817573177" duration="1832000" />
+      <workItem from="1584826403754" duration="60000" />
+      <workItem from="1584830708697" duration="85000" />
+      <workItem from="1584849377387" duration="99000" />
+      <workItem from="1584923566733" duration="11821000" />
+      <workItem from="1585278708687" duration="2887000" />
+      <workItem from="1585336718766" duration="102000" />
+      <workItem from="1585336865081" duration="4835000" />
+      <workItem from="1585607459090" duration="811000" />
+      <workItem from="1585951836910" duration="826000" />
+      <workItem from="1586132146402" duration="14498000" />
+      <workItem from="1586216389606" duration="7184000" />
+      <workItem from="1586319154051" duration="689000" />
+      <workItem from="1586736794452" duration="65000" />
+      <workItem from="1586737530695" duration="16091000" />
+      <workItem from="1586876094198" duration="18148000" />
+      <workItem from="1588364178328" duration="1110000" />
+    </task>
+    <task id="LOCAL-00001" summary="KDtree built succeed">
+      <created>1581823253317</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1581823253317</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixed bug in quizk sort&#10;found bug in points selection">
+      <created>1581871892259</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1581871892259</updated>
+    </task>
+    <task id="LOCAL-00003" summary="bug fixed! Can normally create KDtree!">
+      <created>1581873605679</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1581873605679</updated>
+    </task>
+    <task id="LOCAL-00004" summary="approximate k=1 search succeed!&#10;Ready to complete kNN k&gt;1 with KDtree.">
+      <created>1581906543273</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1581906543273</updated>
+    </task>
+    <task id="LOCAL-00005" summary="approximate k=1 search succeed!&#10;Ready to complete kNN k&gt;1 with KDtree.">
+      <created>1581906562801</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1581906562801</updated>
+    </task>
+    <task id="LOCAL-00006" summary="calculation the mid point of bounding box, instead of medium point.&#10;fixing case to put point.">
+      <created>1581910321609</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1581910321609</updated>
+    </task>
+    <task id="LOCAL-00007" summary="calculated midpoint's KDtree fixed">
+      <created>1581911186311</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1581911186311</updated>
+    </task>
+    <task id="LOCAL-00008" summary="KNN in KDtree with k&gt;1 with backtracking. Without brute force adjusting">
+      <created>1581924936133</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1581924936133</updated>
+    </task>
+    <task id="LOCAL-00009" summary="KNN in KDtree with k&gt;1 with backtracking. Without brute force adjusting. Push back found points">
+      <created>1581925954370</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1581925954370</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Need to be fixed: Instead of fix portion, use random portion(random pick two point and find the avg as it line) in each level">
+      <created>1581955555087</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1581955555087</updated>
+    </task>
+    <task id="LOCAL-00011" summary="slow bug fixed!&#10;Fixing: nonstop">
+      <created>1582387170377</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582387170377</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Bug fixed: non stop">
+      <created>1582391983969</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1582391983969</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Complete write generated points">
+      <created>1582411515045</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1582411515045</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Complete read and write generated points">
+      <created>1582429745167</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1582429745167</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Complete nonrecursively &amp; non-stack approximately traverse KDtree">
+      <created>1583292405039</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1583292405039</updated>
+    </task>
+    <task id="LOCAL-00016" summary="success malloc before building a tree CPU!">
+      <created>1586232398089</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1586232398089</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="KDtree built succeed" />
+    <MESSAGE value="fixed bug in quizk sort&#10;found bug in points selection" />
+    <MESSAGE value="bug fixed! Can normally create KDtree!" />
+    <MESSAGE value="approximate k=1 search succeed!&#10;Ready to complete kNN k&gt;1 with KDtree." />
+    <MESSAGE value="calculation the mid point of bounding box, instead of medium point.&#10;fixing case to put point." />
+    <MESSAGE value="calculated midpoint's KDtree fixed" />
+    <MESSAGE value="KNN in KDtree with k&gt;1 with backtracking. Without brute force adjusting" />
+    <MESSAGE value="KNN in KDtree with k&gt;1 with backtracking. Without brute force adjusting. Push back found points" />
+    <MESSAGE value="Need to be fixed: Instead of fix portion, use random portion(random pick two point and find the avg as it line) in each level" />
+    <MESSAGE value="slow bug fixed!&#10;Fixing: nonstop" />
+    <MESSAGE value="Bug fixed: non stop" />
+    <MESSAGE value="Complete write generated points" />
+    <MESSAGE value="Complete read and write generated points" />
+    <MESSAGE value="Complete nonrecursively &amp; non-stack approximately traverse KDtree" />
+    <MESSAGE value="success malloc before building a tree CPU!" />
+    <option name="LAST_COMMIT_MESSAGE" value="success malloc before building a tree CPU!" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="261" y="0" key="#Deployment" timestamp="1588364485932">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="261" y="0" key="#Deployment/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586909016378" />
+    <state x="261" y="0" key="#Deployment/0.0.1536.824@0.0.1536.824" timestamp="1588364485932" />
+    <state x="361" y="71" key="#Inspections" timestamp="1582174228216">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1582174228216" />
+    <state x="346" y="0" key="#SSH_Configurations" timestamp="1584826449897">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="346" y="0" key="#SSH_Configurations/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1584826449897" />
+    <state x="223" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586737772483">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586737772483" />
+    <state x="495" y="195" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586919087363">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="495" y="195" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586919087363" />
+    <state x="188" y="0" key="CommitChangelistDialog2" timestamp="1586232392949">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="188" y="0" key="CommitChangelistDialog2/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586232392949" />
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1583292403043" />
+    <state x="499" y="110" key="FileChooserDialogImpl" timestamp="1586922669461">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="110" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586922669461" />
+    <state x="499" y="110" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1582561393499" />
+    <state width="1537" height="757" key="GridCell.Tab.0.bottom" timestamp="1586367398224">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1536.824@0.0.1536.824" timestamp="1585006688328" />
+    <state width="1537" height="757" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233555621" />
+    <state width="1537" height="757" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586367398224" />
+    <state width="1493" height="261" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.0.center" timestamp="1586367398223">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1536.824@0.0.1536.824" timestamp="1585006688327" />
+    <state width="1537" height="757" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233555621" />
+    <state width="1537" height="757" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586367398223" />
+    <state width="1493" height="261" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.0.left" timestamp="1586367398223">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1536.824@0.0.1536.824" timestamp="1585006688327" />
+    <state width="1537" height="757" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233555621" />
+    <state width="1537" height="757" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586367398223" />
+    <state width="1493" height="261" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.0.right" timestamp="1586367398223">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1536.824@0.0.1536.824" timestamp="1585006688327" />
+    <state width="1537" height="757" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233555621" />
+    <state width="1537" height="757" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586367398223" />
+    <state width="1493" height="261" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.1.bottom" timestamp="1586286800267">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233524608" />
+    <state width="1537" height="757" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586286800267" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.1.center" timestamp="1586286800267">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233524607" />
+    <state width="1537" height="757" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586286800267" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.1.left" timestamp="1586286800267">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233524607" />
+    <state width="1537" height="757" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586286800267" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state width="1537" height="757" key="GridCell.Tab.1.right" timestamp="1586286800267">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state width="1537" height="757" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586233524608" />
+    <state width="1537" height="757" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586286800267" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1583292430019" />
+    <state x="246" y="93" key="IDE.errors.dialog" timestamp="1586136915954">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="246" y="93" key="IDE.errors.dialog/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586136915954" />
+    <state width="800" height="212" key="ImportCMakeProjectWizard.bottomPanel" timestamp="1581813855102">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="800" height="212" key="ImportCMakeProjectWizard.bottomPanel/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1581813855102" />
+    <state width="800" height="496" key="ImportCMakeProjectWizard.topPanel" timestamp="1581813855102">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="800" height="496" key="ImportCMakeProjectWizard.topPanel/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1581813855102" />
+    <state x="270" y="54" key="SettingsEditor" timestamp="1588364198841">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="270" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1588364198841" />
+    <state x="261" y="80" key="Vcs.Push.Dialog.v2" timestamp="1586232400646">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="261" y="80" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586232400646" />
+    <state x="261" y="80" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1583292413367" />
+    <state x="613" y="290" key="WebDeployment.AddServerDialog.v.1" timestamp="1584816357471">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="613" y="290" key="WebDeployment.AddServerDialog.v.1/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1584816357471" />
+    <state x="467" y="223" key="cloudConfig.SelfSettingsDialog" timestamp="1581904921987">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="467" y="223" key="cloudConfig.SelfSettingsDialog/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1581904921987" />
+    <state x="55" y="0" width="1495" height="799" maximized="true" key="dock-window-1" timestamp="1586829250570">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="1920" y="0" width="1495" height="799" key="dock-window-1/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1586139296748" />
+    <state x="55" y="0" width="1495" height="799" maximized="true" key="dock-window-1/0.0.1536.824/1920.0.1536.824@1920.0.1536.824" timestamp="1586829250570" />
+    <state x="572" y="79" key="ftp.server.browser" timestamp="1584817944986">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="572" y="79" key="ftp.server.browser/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1584817944986" />
+    <state x="603" y="281" key="publish.login" timestamp="1584287093989">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="603" y="281" key="publish.login/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1584287093989" />
+    <state x="2267" y="-1" key="search.everywhere.popup" timestamp="1581870193656">
+      <screen x="1920" y="0" width="1536" height="824" />
+    </state>
+    <state x="2267" y="-1" key="search.everywhere.popup/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1581870193656" />
+    <state x="489" y="310" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581817284697">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="489" y="310" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1536.824/1920.0.1536.824@0.0.1536.824" timestamp="1581817284697" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="new_nodes" />
+        <watch expression="node_index" />
+        <watch expression="index_stamp" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
